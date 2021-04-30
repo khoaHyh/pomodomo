@@ -5,7 +5,8 @@ export const SessionSetters = (props) => {
     return (
         <div>
             <HStack>
-                <Button id="start_stop" onClick = {props.handlePlay}>Start/Stop</Button>
+                {!props.isPlaying && <Button id="start_stop" onClick={props.handlePlay}>Start</Button>}
+                {props.isPlaying && <Button id="start_stop" onClick={props.handlePlay}>Stop</Button>}
                 <Button
                     id="reset" onClick={props.resetTime}> Reset </Button>
             </HStack>
