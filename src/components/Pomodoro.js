@@ -129,7 +129,7 @@ const Pomodoro = () => {
 
                 {/* SESSION MANIPULATION 
                  MAKE SURE YOU ALSO ADD IN HANDLESESSIONSECOND */}
-                <SessionSetters handlePlay={handlePlayBool} resetTime={handleReset} />
+                <SessionSetters isPlaying={isPlaying} handlePlay={handlePlayBool} resetTime={handleReset} />
             </VStack>
         </div>
     );
