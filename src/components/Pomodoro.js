@@ -5,7 +5,6 @@ import { SessionSetters } from './pomoUtils/SessionSetters'
 import { SessionInterval } from './pomoUtils/SessionInterval'
 import { TimerDisplay } from './pomoUtils/TimerDisplay'
 
-
 const Pomodoro = () => {
     const [{ breakTime, pomoTime }, setTime] = useState({
         breakTime: 300,
@@ -15,7 +14,7 @@ const Pomodoro = () => {
     const [sessionType, setSession] = useState(true);// session true = pomoclock , session false = breakclock
     const [timerPointer, setPointer] = useState(pomoTime)
 
-    console.log(timerPointer)
+
     useEffect(() => {
         let timer = null;
         let extra = null
