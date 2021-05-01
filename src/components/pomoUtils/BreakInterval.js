@@ -1,4 +1,4 @@
-import { HStack, Text, IconButton, Button } from "@chakra-ui/react";
+import { HStack, Text, IconButton, Center } from "@chakra-ui/react";
 import { ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons"
 
 export const BreakInterval = (props) => {
@@ -10,13 +10,16 @@ export const BreakInterval = (props) => {
     return (
         <div>
             <HStack>
-
                 <IconButton icon={<ArrowUpIcon />}
                     aria-label="increment"
-                    id="break-increment" onClick={() => { breakTime(true) }}> Increase </IconButton>
-                <Text id="break-label">
-                    Break Length
-                     <Text id="break-length">{props.sessionMinute}</Text>
+                    id="break-increment" onClick={() => { breakTime(true) }} > Increase </IconButton>
+                <Text id="break-label" fontSize='xl'>
+                    Break
+                    <Center>
+                        <Text id="break-length">{props.sessionMinute}</Text>
+
+                    </Center>
+
                 </Text>
 
                 <IconButton icon={<ArrowDownIcon />}

@@ -1,12 +1,15 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 
 export const TimerDisplay = (props) => {
     return (
-        <div>
-            <Text id="timer-label"> </Text>
-            <Text id="time-left" >{props.sessionType} {props.minuteHandle + ":" + props.secondsHandle }</Text>
-        </div>
+        <Box textAlign="center" minW='219px'>
+            <Text  fontWeight='hairline' fontSize='8xl' id="time-left" > {props.minuteHandle + ":" + props.secondsHandle}</Text>
+            <Box rounded="xl" border='2px'>
+                <Text my="2" fontWeight="semibold" fontSize='3xl' id="timer-label">{props.sessionType} </Text>
+            </Box>
+
+        </Box>
     )
 }
 
