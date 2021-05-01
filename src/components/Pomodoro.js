@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { VStack } from '@chakra-ui/react';
+import { Box, Stack, VStack } from '@chakra-ui/react';
 import { BreakInterval } from './pomoUtils/BreakInterval'
 import { SessionSetters } from './pomoUtils/SessionSetters'
 import { SessionInterval } from './pomoUtils/SessionInterval'
@@ -23,7 +23,7 @@ const Pomodoro = () => {
             timer = setInterval(() => {
                 setPointer((time = 1) => time - 1)
 
-            }, 1000);
+            }, 1);
         } else if (!timerPointer) {
             extra = setInterval(() => {
                 setSession(!sessionType);
@@ -117,21 +117,36 @@ const Pomodoro = () => {
 
 
     return (
-        <div>
-            {/* INCREMENT BREAK LENGTH */}
-            <BreakInterval sessionMinute={minuteHandler(breakTime)} breakStateTime={handleBreakTime} />
-            {/* INCREMENT SESSION LENGTH */}
-            <SessionInterval sessionMinute={minuteHandler(pomoTime)} sessionStateTime={handleSessionTime} />
+        <Box bg="red.200" boxShadow="xl" alignContent="center" p={4} width={["100%", "70%", "50%", "35%"]} rounded="xl" overflow="hidden">
             {/* TIMER DISPLAY  */}
-            <VStack border="1px" borderRadius="10px">
-                {sessionType && <TimerDisplay sessionType={"Session"} minuteHandle={minuteHandler(timerPointer)} secondsHandle={secondsHandler(timerPointer)} />}
-                {!sessionType && <TimerDisplay sessionType={"Break"} minuteHandle={minuteHandler(timerPointer)} secondsHandle={secondsHandler(timerPointer)} />}
+            <Stack align="center"  >
+                <Box>
+                    {sessionType && <TimerDisplay sessionType={"Session"} minuteHandle={minuteHandler(timerPointer)} secondsHandle={secondsHandler(timerPointer)} />}
+                    {!sessionType && <TimerDisplay sessionType={"Break"} minuteHandle={minuteHandler(timerPointer)} secondsHandle={secondsHandler(timerPointer)} />}
+                </Box>
 
                 {/* SESSION MANIPULATION 
                  MAKE SURE YOU ALSO ADD IN HANDLESESSIONSECOND */}
-                <SessionSetters isPlaying={isPlaying} handlePlay={handlePlayBool} resetTime={handleReset} />
-            </VStack>
-        </div>
+                <Box minW="219px">
+                    <SessionSetters isPlaying={isPlaying} handlePlay={handlePlayBool} resetTime={handleReset} />
+                </Box>
+                {/* INCREMENT SESSION LENGTH */}
+                <Stack isInline>
+                    <Box w='50%'>
+                        <SessionInterval sessionMinute={minuteHandler(pomoTime)} sessionStateTime={handleSessionTime} />
+                        </Box>
+                    {/* INCREMENT BREAK LENGTH */}
+                        <Box w='50%'>
+                            <BreakInterval sessionMinute={minuteHandler(breakTime)} breakStateTime={handleBreakTime} />
+                        </Box>
+                    
+                </Stack>
+
+            </Stack>
+
+
+
+        </Box>
     );
 }
 
