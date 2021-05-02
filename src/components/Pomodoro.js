@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, VStack } from '@chakra-ui/react';
-import { BreakInterval } from './pomoUtils/BreakInterval'
+import { Box, Stack } from '@chakra-ui/react';
+import { Interval } from './pomoUtils/Interval'
 import { SessionSetters } from './pomoUtils/SessionSetters'
-import { SessionInterval } from './pomoUtils/SessionInterval'
 import { TimerDisplay } from './pomoUtils/TimerDisplay'
 
 const Pomodoro = () => {
@@ -23,7 +22,7 @@ const Pomodoro = () => {
             timer = setInterval(() => {
                 setPointer((time = 1) => time - 1)
 
-            }, 1);
+            }, 1000);
         } else if (!timerPointer) {
             extra = setInterval(() => {
                 setSession(!sessionType);
@@ -117,7 +116,7 @@ const Pomodoro = () => {
 
 
     return (
-        <Box bg="red.200" boxShadow="xl" alignContent="center" p={4} width={["100%", "70%", "50%", "35%"]} rounded="xl" overflow="hidden">
+        <Box bg="red.200" boxShadow="xl" alignContent="center" p={4} width={["100%", "80%", "60%", '45%', "35%"]} rounded="xl" overflow="hidden">
             {/* TIMER DISPLAY  */}
             <Stack align="center"  >
                 <Box>
@@ -131,15 +130,15 @@ const Pomodoro = () => {
                     <SessionSetters isPlaying={isPlaying} handlePlay={handlePlayBool} resetTime={handleReset} />
                 </Box>
                 {/* INCREMENT SESSION LENGTH */}
-                <Stack isInline>
-                    <Box w='50%'>
-                        <SessionInterval sessionMinute={minuteHandler(pomoTime)} sessionStateTime={handleSessionTime} />
-                        </Box>
+                <Stack direction="column" align='center'>
+                    <Box >
+                        <Interval sessionMinute={minuteHandler(pomoTime)} stateTime={handleSessionTime} timeTitle={"Session"} />
+                    </Box>
                     {/* INCREMENT BREAK LENGTH */}
-                        <Box w='50%'>
-                            <BreakInterval sessionMinute={minuteHandler(breakTime)} breakStateTime={handleBreakTime} />
-                        </Box>
-                    
+                    <Box >
+                        <Interval sessionMinute={minuteHandler(breakTime)} stateTime={handleBreakTime} timeTitle={"Break"} />
+                    </Box>
+
                 </Stack>
 
             </Stack>
