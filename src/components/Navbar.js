@@ -7,7 +7,7 @@ export const Navbar = (props) => {
     console.log(isMobile)
     return (
 
-        <Flex w="100vw" bg='green.200' h="6vh" justify="center" align="center" box-shadow='xl'
+        <Flex w="100vw" bg='green.400' h="6vh" justify="center" align="center" box-shadow='xl'
             fontSize={['md', 'lg', 'xl', 'xl']}
             boxShadow='md'
             p={2}>

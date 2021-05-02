@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
-import { BreakInterval } from './pomoUtils/BreakInterval'
+import { Interval } from './pomoUtils/Interval'
 import { SessionSetters } from './pomoUtils/SessionSetters'
-import { SessionInterval } from './pomoUtils/SessionInterval'
 import { TimerDisplay } from './pomoUtils/TimerDisplay'
 
 const Pomodoro = () => {
@@ -133,13 +132,13 @@ const Pomodoro = () => {
                 {/* INCREMENT SESSION LENGTH */}
                 <Stack direction="column" align='center'>
                     <Box >
-                        <SessionInterval sessionMinute={minuteHandler(pomoTime)} sessionStateTime={handleSessionTime} />
-                        </Box>
+                        <Interval sessionMinute={minuteHandler(pomoTime)} stateTime={handleSessionTime} timeTitle={"Session"} />
+                    </Box>
                     {/* INCREMENT BREAK LENGTH */}
-                        <Box >
-                            <BreakInterval sessionMinute={minuteHandler(breakTime)} breakStateTime={handleBreakTime} />
-                        </Box>
-                    
+                    <Box >
+                        <Interval sessionMinute={minuteHandler(breakTime)} stateTime={handleBreakTime} timeTitle={"Break"} />
+                    </Box>
+
                 </Stack>
 
             </Stack>
