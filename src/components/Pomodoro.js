@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, VStack } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
 import { BreakInterval } from './pomoUtils/BreakInterval'
 import { SessionSetters } from './pomoUtils/SessionSetters'
 import { SessionInterval } from './pomoUtils/SessionInterval'
@@ -23,7 +23,7 @@ const Pomodoro = () => {
             timer = setInterval(() => {
                 setPointer((time = 1) => time - 1)
 
-            }, 1);
+            }, 1000);
         } else if (!timerPointer) {
             extra = setInterval(() => {
                 setSession(!sessionType);
@@ -131,12 +131,12 @@ const Pomodoro = () => {
                     <SessionSetters isPlaying={isPlaying} handlePlay={handlePlayBool} resetTime={handleReset} />
                 </Box>
                 {/* INCREMENT SESSION LENGTH */}
-                <Stack isInline>
-                    <Box w='50%'>
+                <Stack direction="column" align='center'>
+                    <Box >
                         <SessionInterval sessionMinute={minuteHandler(pomoTime)} sessionStateTime={handleSessionTime} />
                         </Box>
                     {/* INCREMENT BREAK LENGTH */}
-                        <Box w='50%'>
+                        <Box >
                             <BreakInterval sessionMinute={minuteHandler(breakTime)} breakStateTime={handleBreakTime} />
                         </Box>
                     

@@ -13,7 +13,7 @@ export const BreakInterval = (props) => {
                 <IconButton icon={<ArrowUpIcon />}
                     aria-label="increment"
                     id="break-increment" onClick={() => { breakTime(true) }} > Increase </IconButton>
-                <Text id="break-label" fontSize='xl'>
+                <Text id="break-label" >
                     Break
                     <Center>
                         <Text id="break-length">{props.sessionMinute}</Text>
