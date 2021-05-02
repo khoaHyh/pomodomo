@@ -15,7 +15,7 @@ function App() {
     <ChakraProvider theme={theme} >
       <Flex direction='column' align='center' justify='center'>
         <Navbar />
-        <Flex direction='column' align='center' justify='center' w='100%' h='94vh' bg='red.300'>
+        <Flex direction='column' align='center' justify='center' w='100%' h='94vh' bg='red.400'>
           <Pomodoro />
         </Flex>
       </Flex>

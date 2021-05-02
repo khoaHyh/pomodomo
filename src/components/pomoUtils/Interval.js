@@ -10,18 +10,18 @@ export const Interval = (props) => {
     return (
         <HStack bg='red.300' rounded='lg' width='219px'>
             <Box w='50%'>
-                <Text id="break-label" as='h1' fontSize="xl" fontWeight='semibold' mx='3' pl='2' >
+                <Text id="break-label" as='h1' fontSize="xl" fontWeight='semibold' pl='4' >
                     {props.timeTitle}
                         </Text>
             </Box>
-            <Box w='50%'>
+            <Box >
                 <ButtonGroup isAttached >
                     <IconButton icon={<ArrowUpIcon />}
                         aria-label="break-increment"
                         colorScheme="red"
                         variant="ghost"
                         id="break-increment" onClick={() => { breakTime(true) }} ></IconButton>
-                    <Box alignSelf='center'>
+                    <Box alignSelf='center' px='2'>
                         <Text id="break-length"
                             fontSize='xl'
                             fontWeight='semibold'
