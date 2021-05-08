@@ -1,5 +1,24 @@
 # Pomodomo frontend
 
-This is a test push to branch
+![demo](./src/assets/app-screenshot.png)
 
-Icons made by Freepik from https://www.flaticon.com/
+## Local development   
+
+#### `Setup`
+```shell
+$ git clone https://github.com/khoaHyh/pomodomo-frontend.git
+
+$ cd pomodomo-frontend
+
+$ npm i
+```
+
+#### `Run React app dev server`
+```shell
+$ npm start
+```
+
+## Tech/Framework used on frontend
+
+  * React
+  * ChakraUI
