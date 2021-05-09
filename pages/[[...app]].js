@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
-import { Navbar } from './components/Navbar';
-import Pomodoro from './components/Pomodoro';
+import { Navbar } from '../components/Navbar';
+import Pomodoro from '../components/Pomodoro';
 
 const App = () => {
   return (
