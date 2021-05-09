@@ -15,24 +15,22 @@ const config = {
 const styles = {
   global: props => ({
     body: {
-      color: mode('black', 'white')(props),
+      color: mode('#33332d', 'white')(props),
       bg: mode('white', '#db524d')(props),
     },
   }),
 };
 
 const components = {
-  //Button: {
-  //  // setup light/dark mode component defaults
-  //  baseStyle: props => ({
-  //    color: mode('white', '#db524d')(props),
-  //    bg: mode('#db524d', 'white')(props),
-  //  }),
-  //},
-  Text: {
+  Button: {
     // setup light/dark mode component defaults
     baseStyle: props => ({
-      color: mode('#333', 'white')(props),
+      color: mode('#33332d', '#db524d')(props),
+    }),
+  },
+  Text: {
+    baseStyle: props => ({
+      color: mode('#33332d', 'white')(props),
     }),
   },
 };

@@ -7,9 +7,19 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
+  const incrementBg = useColorModeValue('green.400', '#33332d');
+  const incrementActiveBg = useColorModeValue('green.500', '#33332d');
+
+  const decrementBg = useColorModeValue('#db524d', '#33332d');
+  const decrementActiveBg = useColorModeValue('white', '#33332d');
+
+  const colorIncrement = useColorModeValue('#33332d', 'green.400');
+  const colorDecrement = useColorModeValue('#33332d', '#db524d');
+
   return (
     <HStack rounded="lg" width="240px">
       <Box w="50%">
@@ -21,6 +31,7 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
         <NumberInput
           aria-label={`${timeTitle} input`}
           size="sm"
+          variant="filled"
           defaultValue={sessionTime}
           min={0}
           max={60}
@@ -31,16 +42,18 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
           keepWithinRange
           clampValueOnBlur
         >
-          <NumberInputField focusBorderColor="green.200" />
+          <NumberInputField focusBorderColor="green.300" />
           <NumberInputStepper>
             <NumberIncrementStepper
-              bg="green.200"
-              _active={{ bg: 'green.300' }}
+              bg={incrementBg}
+              _active={incrementActiveBg}
+              color={colorIncrement}
               children="+"
             />
             <NumberDecrementStepper
-              bg="pink.200"
-              _active={{ bg: 'pink.300' }}
+              bg={decrementBg}
+              _active={decrementActiveBg}
+              color={colorDecrement}
               children="-"
             />
           </NumberInputStepper>

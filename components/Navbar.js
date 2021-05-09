@@ -13,6 +13,7 @@ import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
+  const bg = useColorModeValue('#db524d', '#33332d');
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 
@@ -56,6 +57,7 @@ export const Navbar = () => {
       >
         <Stack spacing="5" isInline align="center">
           <IconButton
+            bg={bg}
             aria-label={`Switch to ${text} mode`}
             position="relative"
             icon={<SwitchIcon />}
