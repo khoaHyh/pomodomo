@@ -1,7 +1,15 @@
 import React from 'react';
-import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
+import { ChakraProvider, Flex, extendTheme } from '@chakra-ui/react';
 import { Navbar } from '../components/Navbar';
 import Pomodoro from '../components/Pomodoro';
+import '@fontsource/ibm-plex-mono';
+
+const theme = extendTheme({
+  fonts: {
+    heading: 'IBM Plex Mono',
+    body: 'IBM Plex Mono',
+  },
+});
 
 const App = () => {
   return (
