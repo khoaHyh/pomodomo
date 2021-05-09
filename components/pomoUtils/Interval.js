@@ -31,6 +31,7 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
         <NumberInput
           aria-label={`${timeTitle} input`}
           size="sm"
+          w={110}
           variant="filled"
           defaultValue={sessionTime}
           min={0}
