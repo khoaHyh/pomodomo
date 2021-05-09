@@ -1,6 +1,6 @@
 # Pomodomo 
 
-![demo](./src/assets/app-screenshot.png)
+![demo](./public/images/app-screenshot.png)
 
 ## Local development   
 

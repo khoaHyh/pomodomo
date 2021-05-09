@@ -120,13 +120,12 @@ const Pomodoro = () => {
 
   return (
     <Box
-      bg="red.200"
+      id="container-pomodoro"
       boxShadow="xl"
       alignContent="center"
-      p={4}
+      p={5}
       width={['100%', '80%', '60%', '45%', '35%']}
       rounded="xl"
-      overflow="hidden"
     >
       {/* TIMER DISPLAY  */}
       <Stack align="center">

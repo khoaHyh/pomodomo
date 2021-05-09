@@ -1,9 +1,21 @@
+import {
+  Box,
+  Flex,
+  IconButton,
+  Stack,
+  Image,
+  useMediaQuery,
+  useColorMode,
+  useColorModeValue,
+} from '@chakra-ui/react';
 //import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
-import { Box, Flex, Stack, Image } from '@chakra-ui/react';
-//import { SunIcon } from '@chakra-ui/icons';
-import { useMediaQuery } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
 export const Navbar = () => {
+  const { toggleColorMode } = useColorMode();
+  const text = useColorModeValue('dark', 'light');
+  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
+
   const [isMobile] = useMediaQuery('(min-width:800px)');
   console.log(isMobile);
 
@@ -19,7 +31,6 @@ export const Navbar = () => {
   return (
     <Flex
       w="100vw"
-      bg="green.400"
       h="6vh"
       justify="center"
       align="center"
@@ -37,7 +48,21 @@ export const Navbar = () => {
         <Box fontWeight="semibold">Pomodomo</Box>
       </Stack>
       {/* BUTTONS */}
+      <Flex
+        w={['100vw', '100vw', '80vw', '80vw']}
+        justify="end"
+        align="center"
+        px="4"
+      >
+        <Stack spacing="5" isInline align="center">
+          <IconButton
+            aria-label={`Switch to ${text} mode`}
+            position="relative"
+            icon={<SwitchIcon />}
+            onClick={toggleColorMode}
+          />
+        </Stack>
+      </Flex>
     </Flex>
   );
 };
-

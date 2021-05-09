@@ -7,7 +7,7 @@ export const Interval = props => {
   };
 
   return (
-    <HStack bg="red.300" rounded="lg" width="240px">
+    <HStack rounded="lg" width="240px">
       <Box w="50%">
         <Text
           id="break-label"
@@ -24,7 +24,6 @@ export const Interval = props => {
           <IconButton
             icon={<ArrowUpIcon />}
             aria-label="break-increment"
-            colorScheme="red"
             variant="ghost"
             id="break-increment"
             onClick={() => {
@@ -39,7 +38,6 @@ export const Interval = props => {
           <IconButton
             icon={<ArrowDownIcon />}
             aria-label="break-decrement"
-            colorScheme="red"
             variant="ghost"
             id="break-decrement"
             onClick={() => {
@@ -51,4 +49,3 @@ export const Interval = props => {
     </HStack>
   );
 };
-
