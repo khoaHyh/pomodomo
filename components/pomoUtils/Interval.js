@@ -34,7 +34,7 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
           w={110}
           variant="filled"
           defaultValue={sessionTime}
-          min={0}
+          min={1}
           max={60}
           onChange={value => {
             console.log(value);
