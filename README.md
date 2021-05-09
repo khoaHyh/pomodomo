@@ -18,7 +18,9 @@ $ npm i
 $ npm start
 ```
 
-## Tech/Framework used on frontend
+## Tech/Framework 
 
-  * React
+  * React (Next.js)
   * ChakraUI
+  * Express
+  * PostgreSQL
