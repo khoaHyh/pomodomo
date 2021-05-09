@@ -1,4 +1,4 @@
-# Pomodomo frontend
+# Pomodomo 
 
 ![demo](./src/assets/app-screenshot.png)
 
@@ -6,9 +6,9 @@
 
 #### `Setup`
 ```shell
-$ git clone https://github.com/khoaHyh/pomodomo-frontend.git
+$ git clone https://github.com/khoaHyh/pomodomo.git
 
-$ cd pomodomo-frontend
+$ cd pomodomo
 
 $ npm i
 ```
