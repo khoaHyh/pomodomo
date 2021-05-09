@@ -15,7 +15,7 @@ $ npm i
 
 #### `Run React app dev server`
 ```shell
-$ npm start
+$ npm run dev
 ```
 
 ## Tech/Framework 
