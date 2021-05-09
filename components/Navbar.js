@@ -1,7 +1,9 @@
-import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
-import { SunIcon } from '@chakra-ui/icons';
+//import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
+import { Box, Flex, Stack, Image } from '@chakra-ui/react';
+//import { SunIcon } from '@chakra-ui/icons';
 import { useMediaQuery } from '@chakra-ui/react';
-export const Navbar = props => {
+
+export const Navbar = () => {
   const [isMobile] = useMediaQuery('(min-width:800px)');
   console.log(isMobile);
 
