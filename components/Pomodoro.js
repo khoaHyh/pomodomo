@@ -5,13 +5,11 @@ import { SessionSetters } from './pomoUtils/SessionSetters';
 import { TimerDisplay } from './pomoUtils/TimerDisplay';
 
 const Pomodoro = () => {
-  const [{ breakTime, pomoTime }, setTime] = useState({
-    breakTime: 300,
-    pomoTime: 1500,
-  });
+  const [pomoTime, setPomoTime] = useState(1500);
+  const [breakTime, setBreakTime] = useState(300);
   const [{ isPlaying }, setIsPlaying] = useState(false);
   const [sessionType, setSessionType] = useState(true); // session true = pomoclock , session false = breakclock
-  const [timerPointer, setTimerPointer] = useState(pomoTime);
+  const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
 
   useEffect(() => {
     let timer = null;
@@ -76,43 +74,27 @@ const Pomodoro = () => {
     }
   };
 
-  const handleSessionTime = incOrDec => {
-    if (!isPlaying) {
-      // only if its not playing
-      if (incOrDec === true) {
-        setTime(state => ({
-          ...state,
-          pomoTime: state.pomoTime < 3600 ? state.pomoTime + 60 : 3600,
-        }));
-        setTimerPointer(pomoTime < 3600 ? pomoTime + 60 : 3600);
-      } else {
-        setTime(state => ({
-          ...state,
-          pomoTime: state.pomoTime > 60 ? state.pomoTime - 60 : 60,
-        }));
-        setTimerPointer(pomoTime > 60 ? pomoTime - 60 : 60);
-      }
+  // handle changes to pomodoro time input
+  const handlePomoTime = value => {
+    const valueInSeconds = value * 60;
+    if (!isPlaying && valueInSeconds <= 3600 && value >= 0) {
+      setPomoTime(valueInSeconds);
+      setTimerPointer(valueInSeconds);
     }
   };
 
-  const handleBreakTime = increaseOrDecrease => {
-    if (!isPlaying) {
-      if (increaseOrDecrease === true) {
-        setTime(state => ({
-          ...state,
-          breakTime: state.breakTime < 3600 ? state.breakTime + 60 : 3600,
-        }));
-      } else {
-        setTime(state => ({
-          ...state,
-          breakTime: state.breakTime > 60 ? state.breakTime - 60 : 60,
-        }));
-      }
+  // handle changes to break time input
+  const handleBreakTime = value => {
+    const valueInSeconds = value * 60;
+    if (!isPlaying && valueInSeconds <= 3600 && value >= 0) {
+      setBreakTime(valueInSeconds);
+      setTimerPointer(valueInSeconds);
     }
   };
 
   const handleReset = () => {
-    setTime(() => ({ pomoTime: 1500, breakTime: 300 }));
+    setPomoTime(1500);
+    setBreakTime(300);
     setIsPlaying(() => ({ isPlaying: false }));
     setSessionType(true);
     setTimerPointer(1500);
@@ -155,20 +137,20 @@ const Pomodoro = () => {
             resetTime={handleReset}
           />
         </Box>
-        {/* INCREMENT SESSION LENGTH */}
+        {/* HANDLE SESSION LENGTH */}
         <Stack direction="column" align="center">
           <Box>
             <Interval
-              sessionMinute={minuteHandler(pomoTime)}
-              stateTime={handleSessionTime}
-              timeTitle={'Session'}
+              sessionTime={minuteHandler(pomoTime)}
+              handleSessionTime={handlePomoTime}
+              timeTitle={'Pomodoro'}
             />
           </Box>
-          {/* INCREMENT BREAK LENGTH */}
+          {/* HANDLE BREAK LENGTH */}
           <Box>
             <Interval
-              sessionMinute={minuteHandler(breakTime)}
-              stateTime={handleBreakTime}
+              sessionTime={minuteHandler(breakTime)}
+              handleSessionTime={handleBreakTime}
               timeTitle={'Break'}
             />
           </Box>

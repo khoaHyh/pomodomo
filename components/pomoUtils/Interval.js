@@ -1,50 +1,50 @@
-import { HStack, Text, IconButton, ButtonGroup, Box } from '@chakra-ui/react';
-import { ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons';
+import {
+  HStack,
+  Text,
+  Box,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from '@chakra-ui/react';
 
-export const Interval = props => {
-  const breakTime = isInc => {
-    props.stateTime(isInc);
-  };
-
+export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
   return (
     <HStack rounded="lg" width="240px">
       <Box w="50%">
-        <Text
-          id="break-label"
-          as="h1"
-          fontSize="xl"
-          fontWeight="semibold"
-          pl="4"
-        >
-          {props.timeTitle}
+        <Text id="break-label" as="h1" fontWeight="semibold" pl="4">
+          {timeTitle}
         </Text>
       </Box>
       <Box>
-        <ButtonGroup isAttached>
-          <IconButton
-            icon={<ArrowUpIcon />}
-            aria-label="break-increment"
-            variant="ghost"
-            id="break-increment"
-            onClick={() => {
-              breakTime(true);
-            }}
-          ></IconButton>
-          <Box alignSelf="center" px="2">
-            <Text id="break-length" fontSize="xl" fontWeight="semibold">
-              {props.sessionMinute}
-            </Text>
-          </Box>
-          <IconButton
-            icon={<ArrowDownIcon />}
-            aria-label="break-decrement"
-            variant="ghost"
-            id="break-decrement"
-            onClick={() => {
-              breakTime(false);
-            }}
-          ></IconButton>
-        </ButtonGroup>
+        <NumberInput
+          aria-label={`${timeTitle} input`}
+          size="sm"
+          defaultValue={sessionTime}
+          min={0}
+          max={60}
+          onChange={value => {
+            console.log(value);
+            handleSessionTime(parseInt(value));
+          }}
+          keepWithinRange
+          clampValueOnBlur
+        >
+          <NumberInputField focusBorderColor="green.200" />
+          <NumberInputStepper>
+            <NumberIncrementStepper
+              bg="green.200"
+              _active={{ bg: 'green.300' }}
+              children="+"
+            />
+            <NumberDecrementStepper
+              bg="pink.200"
+              _active={{ bg: 'pink.300' }}
+              children="-"
+            />
+          </NumberInputStepper>
+        </NumberInput>
       </Box>
     </HStack>
   );
