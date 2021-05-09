@@ -77,7 +77,7 @@ const Pomodoro = () => {
   // handle changes to pomodoro time input
   const handlePomoTime = value => {
     const valueInSeconds = value * 60;
-    if (!isPlaying && valueInSeconds <= 3600 && value >= 0) {
+    if (!isPlaying && sessionType && valueInSeconds <= 3600 && value >= 0) {
       setPomoTime(valueInSeconds);
       setTimerPointer(valueInSeconds);
     }
@@ -86,7 +86,7 @@ const Pomodoro = () => {
   // handle changes to break time input
   const handleBreakTime = value => {
     const valueInSeconds = value * 60;
-    if (!isPlaying && valueInSeconds <= 3600 && value >= 0) {
+    if (!isPlaying && !sessionType && valueInSeconds <= 3600 && value >= 0) {
       setBreakTime(valueInSeconds);
       setTimerPointer(valueInSeconds);
     }

@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Spacer,
   IconButton,
   Stack,
   Image,
@@ -40,7 +41,7 @@ export const Navbar = () => {
       boxShadow="md"
     >
       {/* LOGO */}
-      <Stack isInline align="center" px="4" as="button">
+      <Stack isInline align="center" m={0} px="4">
         <Image
           align="center"
           boxSize={['36px', '48px', '48px', '48px']}
@@ -48,6 +49,7 @@ export const Navbar = () => {
         />
         <Box fontWeight="semibold">Pomodomo</Box>
       </Stack>
+      <Spacer />
       {/* BUTTONS */}
       <Flex
         w={['100vw', '100vw', '80vw', '80vw']}
