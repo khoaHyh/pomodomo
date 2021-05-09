@@ -1,4 +1,6 @@
-# Pomodomo 
+# Pomodomo
+
+Frontend of pomodomo app. Click [here](https://github.com/khoaHyh/pomodomo-api) to view the backend repository.
 
 ![demo](./public/images/app-screenshot.png)
 
@@ -22,5 +24,3 @@ $ npm run dev
 
   * React (Next.js)
   * ChakraUI
-  * Express
-  * PostgreSQL
