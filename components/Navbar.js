@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Spacer,
   IconButton,
@@ -23,10 +24,7 @@ export const Navbar = () => {
 
   //<Flex w={['100vw', '100vw', '80vw', '80vw']} justify='end' align='center' px='4'>
   //    <Stack spacing='5' isInline align='center' >
-  //        <IconButton position='relative' icon={<SunIcon />}></IconButton>
-  //        {[> LOGIN/SIGNUP <]}
-  //        {isMobile && <Button position='relative'>Login</Button>}
-  //        {isMobile && <Button position='relative'> Sign Up</Button>}
+
   //    </Stack>
   //</Flex>
 
@@ -34,11 +32,10 @@ export const Navbar = () => {
     <Flex
       w="100vw"
       h="6vh"
-      justify="center"
-      align="center"
       box-shadow="xl"
       fontSize={['md', 'xl', 'xl', 'xl']}
       boxShadow="md"
+      justify="space-between"
     >
       {/* LOGO */}
       <Stack isInline align="center" m={0} px="4">
@@ -49,24 +46,18 @@ export const Navbar = () => {
         />
         <Box fontWeight="semibold">Pomodomo</Box>
       </Stack>
-      <Spacer />
       {/* BUTTONS */}
-      <Flex
-        w={['100vw', '100vw', '80vw', '80vw']}
-        justify="end"
-        align="center"
-        px="4"
-      >
-        <Stack spacing="5" isInline align="center">
+  
+        <Stack spacing="5" isInline align="center" px='4'> 
           <IconButton
             bg={bg}
             aria-label={`Switch to ${text} mode`}
-            position="relative"
             icon={<SwitchIcon />}
             onClick={toggleColorMode}
           />
+
+          {isMobile && <Button position="relative">Login</Button>}
         </Stack>
-      </Flex>
     </Flex>
   );
 };
