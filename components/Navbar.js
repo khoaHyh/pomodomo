@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Spacer,
   IconButton,
@@ -8,9 +9,11 @@ import {
   useMediaQuery,
   useColorMode,
   useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react';
 //import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
+import { LoginModal } from './login/LoginModal';
 
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
@@ -18,27 +21,22 @@ export const Navbar = () => {
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery('(min-width:800px)');
   console.log(isMobile);
 
-  //<Flex w={['100vw', '100vw', '80vw', '80vw']} justify='end' align='center' px='4'>
-  //    <Stack spacing='5' isInline align='center' >
-  //        <IconButton position='relative' icon={<SunIcon />}></IconButton>
-  //        {[> LOGIN/SIGNUP <]}
-  //        {isMobile && <Button position='relative'>Login</Button>}
-  //        {isMobile && <Button position='relative'> Sign Up</Button>}
-  //    </Stack>
-  //</Flex>
+  const handleModal = () => {
+    onOpen();
+  };
 
   return (
     <Flex
       w="100vw"
       h="6vh"
-      justify="center"
-      align="center"
       box-shadow="xl"
       fontSize={['md', 'xl', 'xl', 'xl']}
       boxShadow="md"
+      justify="space-between"
     >
       {/* LOGO */}
       <Stack isInline align="center" m={0} px="4">
@@ -49,24 +47,24 @@ export const Navbar = () => {
         />
         <Box fontWeight="semibold">Pomodomo</Box>
       </Stack>
-      <Spacer />
       {/* BUTTONS */}
-      <Flex
-        w={['100vw', '100vw', '80vw', '80vw']}
-        justify="end"
-        align="center"
-        px="4"
-      >
-        <Stack spacing="5" isInline align="center">
-          <IconButton
-            bg={bg}
-            aria-label={`Switch to ${text} mode`}
-            position="relative"
-            icon={<SwitchIcon />}
-            onClick={toggleColorMode}
-          />
-        </Stack>
-      </Flex>
+
+      <Stack spacing="5" isInline align="center" px="4">
+      {/* Color mode button */}
+        <IconButton
+          bg={bg}
+          aria-label={`Switch to ${text} mode`}
+          icon={<SwitchIcon />}
+          onClick={toggleColorMode}
+        />
+      {/* Login button */}
+        {isMobile && (
+          <Button position="relative" onClick={handleModal}>
+            Login
+          </Button>
+        )}
+        <LoginModal onClose={onClose} isOpen={isOpen} />
+      </Stack>
     </Flex>
   );
 };
