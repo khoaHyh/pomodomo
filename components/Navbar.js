@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Flex,
-  Spacer,
   IconButton,
   Stack,
   Image,
@@ -29,6 +28,12 @@ export const Navbar = () => {
     onOpen();
   };
 
+  //{isMobile && (
+  //  <Button position="relative" onClick={handleModal}>
+  //    Login
+  //  </Button>
+  //)}
+
   return (
     <Flex
       w="100vw"
@@ -50,19 +55,14 @@ export const Navbar = () => {
       {/* BUTTONS */}
 
       <Stack spacing="5" isInline align="center" px="4">
-      {/* Color mode button */}
+        {/* Color mode button */}
         <IconButton
           bg={bg}
           aria-label={`Switch to ${text} mode`}
           icon={<SwitchIcon />}
           onClick={toggleColorMode}
         />
-      {/* Login button */}
-        {isMobile && (
-          <Button position="relative" onClick={handleModal}>
-            Login
-          </Button>
-        )}
+        {/* Login button */}
         <LoginModal onClose={onClose} isOpen={isOpen} />
       </Stack>
     </Flex>
