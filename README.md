@@ -24,3 +24,7 @@ $ npm run dev
 
   * React (Next.js)
   * ChakraUI
+
+## App Architecture
+
+![demo](./public/images/pomodomo-architecture.png)
