@@ -12,8 +12,7 @@ import {
 } from '@chakra-ui/react';
 //import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import { LoginModal } from './login/LoginModal';
-
+import { LoginModal } from './authentication/login/LoginModal';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
   const bg = useColorModeValue('#db524d', '#33332d');
@@ -23,6 +22,7 @@ export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery('(min-width:800px)');
   console.log(isMobile);
+
 
   const handleModal = () => {
     onOpen();
@@ -63,6 +63,10 @@ export const Navbar = () => {
           onClick={toggleColorMode}
         />
         {/* Login button */}
+        <Button position="relative" onClick={handleModal}>
+          Login
+        </Button>
+
         <LoginModal onClose={onClose} isOpen={isOpen} />
       </Stack>
     </Flex>

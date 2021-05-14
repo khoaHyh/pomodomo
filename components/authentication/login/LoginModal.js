@@ -3,6 +3,7 @@ import {
   Modal,
   ModalContent,
   ModalFooter,
+  ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/modal';
 import { LoginTabs } from './LoginTabs';
@@ -15,13 +16,14 @@ export const LoginModal = ({ onClose, isOpen }) => {
       isOpen={isOpen}
       motionPreset="scale"
       scrollBehavior={'inside'}
-      size='sm'
+      size="sm"
     >
       <ModalOverlay />
       <ModalContent>
         <LoginTabs />
         <ModalFooter>
           <Button onClick={onClose}>Close</Button>
+
         </ModalFooter>
       </ModalContent>
     </Modal>
