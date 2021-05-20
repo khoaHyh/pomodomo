@@ -23,10 +23,10 @@ export const RegisterPanel = () => {
     e.preventDefault();
     const authUser = await userValidation(password, userName);
     setMessage(authUser);
-    if (authUser.length > 0) setStatus('error');
+    if (authUser.length > 0) {
+      setStatus('error');
+    }
 
-    // console.log('line 25:', message);
-    // console.log('line 26:', authUser);
     if (authUser.length < 1) {
       setMessage([]);
       const createInfo = {
@@ -36,6 +36,7 @@ export const RegisterPanel = () => {
       };
 
       try {
+        //post the object to server
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
           createInfo
@@ -45,13 +46,11 @@ export const RegisterPanel = () => {
           //set message to res.data
           setMessage([res.data]);
           setStatus('success');
-          console.log('created:', res.data);
         }
       } catch (err) {
         //set message to err.response.data
         setMessage([err.response.data]);
         setStatus('warning');
-        console.log('TRY ERROR:', err.response.data.message);
       }
     }
   };
