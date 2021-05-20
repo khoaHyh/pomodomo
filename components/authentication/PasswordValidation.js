@@ -1,3 +1,6 @@
+import axios from 'axios';
+import crypto from 'crypto';
+import { resolve } from 'path';
 // Validate lowercase letters
 const lowerCaseCheck = password => {
   let lowerCaseLetters = /[a-z]/g;
@@ -42,61 +45,83 @@ const pwLengthCheck = password => {
   return true;
 };
 
-// Regex for alphanumeric usernames containing at least 6 characters
+const passwordAPIChecker = async password => {
+  let hashed = crypto
+    .createHash('sha1')
+    .update(password)
+    .digest('hex')
+    .toUpperCase();
+
+  let range = hashed.slice(0, 5);
+  let suffix = hashed.slice(5);
+
+  let res = await axios(`https://api.pwnedpasswords.com/range/${range}`);
+  let body = await res.data;
+
+  let regex = new RegExp(`^${suffix}:`, 'm');
+  return regex.test(body); // true (pwned), false (not pwned)
+};
+
+const userValidation = async (password = ' ', userName) => {
+  let errorCollection = [];
+
+  if (userCheck(userName) === false) {
+    errorCollection = errorCollection.concat({
+      message: 'Username needs to contain 6 alpha-numeric charcters',
+    });
+    // console.log('Username needs to contain 6 charcters');
+  }
+
+  // password check
+  if (pwLengthCheck(password) === true) {
+    if (lowerCaseCheck(password) === false) {
+      errorCollection = errorCollection.concat({
+        message: 'Needs to contain atleast one lowercase letter',
+      });
+      // console.log('Needs to contain atleast one lowercase letter');
+    }
+    if (upperCaseCheck(password) === false) {
+      errorCollection = errorCollection.concat({
+        message: 'Needs to contain atleast one uppercase letter',
+      });
+      // console.log('Needs to contain atleast one uppercase letter');
+    }
+    if (numbersCheck(password) === false) {
+      errorCollection = errorCollection.concat({
+        message: 'Password needs atleast one number',
+      });
+      // console.log('Password needs atleast one number');
+    }
+    if (specialCheck(password) === false) {
+      errorCollection = errorCollection.concat({
+        message: 'Password needs atleast one special charcter (!@#$)',
+      });
+      // console.log('Password needs atleast one special charcter (!@#$)');
+    }
+    const isPwned = await passwordAPIChecker(password).then(res => res);
+    if (isPwned === true) {
+      errorCollection = errorCollection.concat({
+        message: 'Password has been breached, try another password',
+      });
+      // console.log('Password has been pwned try another password');
+    }
+
+    // console.log(errorCollection);
+  } else {
+    errorCollection = errorCollection.concat({
+      message: 'Password is too short',
+    });
+    // console.log('Password is too short');
+    // console.log(errorCollection);
+  }
+
+  return errorCollection;
+};
+
 const alphanumRegex = /^[0-9a-zA-Z]{6,}$/i;
 
-// Regex for passwords with the criteria from the checks above
-const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
-
-const registerFormValidation = async (
-  username,
-  password,
-  setIsLoading,
-  register,
-  setError,
-  range,
-  suffix
-) => {
-  // Check if username contains a minimum of 6 characters and is entirely alphanumeric
-  if (alphanumRegex.test(username)) {
-    // Use the api to check if the password has been pwned (found in database breach)
-    setIsLoading(true);
-    try {
-      let response = await fetch(
-        `https://api.pwnedpasswords.com/range/${range}`
-      );
-      let body = await response.text();
-      let regex = new RegExp(`^${suffix}:`, 'm');
-
-      if (passwordRegex.test(password)) {
-        !regex.test(body)
-          ? register()
-          : setError(
-              'This password has been found in a database breach. Please enter another password.'
-            );
-        setIsLoading(false);
-      } else {
-        setError('Password does not meet all requirements.');
-        setIsLoading(false);
-      }
-    } catch (err) {
-      console.log(`PwnedPasswords API, ${err}`);
-      setError('500 Internal Server Error with PwnedPasswords API');
-      setIsLoading(false);
-    }
-  } else {
-    setError(
-      'Username must contain at least 6 characters and be alphanumeric.'
-    );
-    setIsLoading(false);
-  }
+const userCheck = userName => {
+  return alphanumRegex.test(userName);
 };
 
-export {
-  lowerCaseCheck,
-  upperCaseCheck,
-  numbersCheck,
-  specialCheck,
-  pwLengthCheck,
-  registerFormValidation,
-};
+export { userValidation };
