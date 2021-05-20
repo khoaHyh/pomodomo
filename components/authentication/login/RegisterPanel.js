@@ -26,7 +26,7 @@ export const RegisterPanel = () => {
     if (authUser.length > 0) setStatus('error');
 
     // console.log('line 25:', message);
-    console.log('line 26:', authUser);
+    // console.log('line 26:', authUser);
     if (authUser.length < 1) {
       setMessage([]);
       const createInfo = {
@@ -37,7 +37,7 @@ export const RegisterPanel = () => {
 
       try {
         const res = await axios.post(
-          'https://api.pomodomo.ca/register',
+          `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
           createInfo
         );
 

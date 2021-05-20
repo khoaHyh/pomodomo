@@ -7,9 +7,10 @@ import {
 import { ListItem, UnorderedList } from '@chakra-ui/layout';
 
 export const StatusAlert = ({ message, status }) => {
-  console.log('passthru:', message);
+  // console.log('passthru:', message);
   return (
-    <Alert mt="3" status={status}>
+    // status={status} 
+    <Alert mt="3" rounded='5'>
       <AlertIcon />
       <AlertTitle>
         {status === 'success'

@@ -64,6 +64,19 @@ const passwordAPIChecker = async password => {
 
 const userValidation = async (password = '', userName = '') => {
   let errorCollection = [];
+  try {
+    const isPwned = await passwordAPIChecker(password);
+    if (isPwned === true) {
+      errorCollection = errorCollection.concat({
+        message: 'Password has been breached, try another password',
+      });
+      // console.log('Password has been pwned try another password');
+    }
+  } catch (err) {
+    errorCollection = errorCollection.concat({
+      message: 'Server Error: 500 could not reach',
+    });
+  }
 
   if (userCheck(userName) === false) {
     errorCollection = errorCollection.concat({
@@ -71,8 +84,6 @@ const userValidation = async (password = '', userName = '') => {
     });
     // console.log('Username needs to contain 6 charcters');
   }
-
-  // password check
   if (pwLengthCheck(password) === false) {
     errorCollection = errorCollection.concat({
       message: 'Password is less than 8 charcters',
@@ -102,16 +113,6 @@ const userValidation = async (password = '', userName = '') => {
     });
     // console.log('Password needs atleast one special charcter (!@#$)');
   }
-  const isPwned = await passwordAPIChecker(password).then(res => res);
-  if (isPwned === true) {
-    errorCollection = errorCollection.concat({
-      message: 'Password has been breached, try another password',
-    });
-    // console.log('Password has been pwned try another password');
-  }
-
-  // console.log(errorCollection);
-
   return errorCollection;
 };
 
