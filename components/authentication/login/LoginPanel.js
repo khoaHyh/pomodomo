@@ -10,8 +10,8 @@ export const LoginPanel = () => {
   return (
     <>
       {/* EMAIL */}
-      <FormControl id="email">
-        <FormLabel>Email</FormLabel>
+      <FormControl id="text">
+        <FormLabel>User Name</FormLabel>
         <Input type="email" />
       </FormControl>
       {/* PASSWORD */}
