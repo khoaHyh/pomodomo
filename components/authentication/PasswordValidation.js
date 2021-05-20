@@ -62,7 +62,7 @@ const passwordAPIChecker = async password => {
   return regex.test(body); // true (pwned), false (not pwned)
 };
 
-const userValidation = async (password = ' ', userName) => {
+const userValidation = async (password = '', userName = '') => {
   let errorCollection = [];
 
   if (userCheck(userName) === false) {
@@ -73,47 +73,44 @@ const userValidation = async (password = ' ', userName) => {
   }
 
   // password check
-  if (pwLengthCheck(password) === true) {
-    if (lowerCaseCheck(password) === false) {
-      errorCollection = errorCollection.concat({
-        message: 'Needs to contain atleast one lowercase letter',
-      });
-      // console.log('Needs to contain atleast one lowercase letter');
-    }
-    if (upperCaseCheck(password) === false) {
-      errorCollection = errorCollection.concat({
-        message: 'Needs to contain atleast one uppercase letter',
-      });
-      // console.log('Needs to contain atleast one uppercase letter');
-    }
-    if (numbersCheck(password) === false) {
-      errorCollection = errorCollection.concat({
-        message: 'Password needs atleast one number',
-      });
-      // console.log('Password needs atleast one number');
-    }
-    if (specialCheck(password) === false) {
-      errorCollection = errorCollection.concat({
-        message: 'Password needs atleast one special charcter (!@#$)',
-      });
-      // console.log('Password needs atleast one special charcter (!@#$)');
-    }
-    const isPwned = await passwordAPIChecker(password).then(res => res);
-    if (isPwned === true) {
-      errorCollection = errorCollection.concat({
-        message: 'Password has been breached, try another password',
-      });
-      // console.log('Password has been pwned try another password');
-    }
-
-    // console.log(errorCollection);
-  } else {
+  if (pwLengthCheck(password) === false) {
     errorCollection = errorCollection.concat({
-      message: 'Password is too short',
+      message: 'Password is less than 8 charcters',
     });
-    // console.log('Password is too short');
-    // console.log(errorCollection);
   }
+  if (lowerCaseCheck(password) === false) {
+    errorCollection = errorCollection.concat({
+      message: 'Password has to contain atleast one lowercase letter',
+    });
+    // console.log('Needs to contain atleast one lowercase letter');
+  }
+  if (upperCaseCheck(password) === false) {
+    errorCollection = errorCollection.concat({
+      message: 'Password has to contain atleast one uppercase letter',
+    });
+    // console.log('Needs to contain atleast one uppercase letter');
+  }
+  if (numbersCheck(password) === false) {
+    errorCollection = errorCollection.concat({
+      message: 'Password needs atleast one number',
+    });
+    // console.log('Password needs atleast one number');
+  }
+  if (specialCheck(password) === false) {
+    errorCollection = errorCollection.concat({
+      message: 'Password needs atleast one special charcter (! @ # $)',
+    });
+    // console.log('Password needs atleast one special charcter (!@#$)');
+  }
+  const isPwned = await passwordAPIChecker(password).then(res => res);
+  if (isPwned === true) {
+    errorCollection = errorCollection.concat({
+      message: 'Password has been breached, try another password',
+    });
+    // console.log('Password has been pwned try another password');
+  }
+
+  // console.log(errorCollection);
 
   return errorCollection;
 };
@@ -121,7 +118,12 @@ const userValidation = async (password = ' ', userName) => {
 const alphanumRegex = /^[0-9a-zA-Z]{6,}$/i;
 
 const userCheck = userName => {
-  return alphanumRegex.test(userName);
+  if (userName.length < 6) {
+    return false;
+  } else {
+    if (alphanumRegex.test(userName)) return true;
+    else return false;
+  }
 };
 
 export { userValidation };

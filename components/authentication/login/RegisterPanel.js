@@ -5,31 +5,30 @@ import {
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Stack } from '@chakra-ui/layout';
-import { Button, ButtonGroup, toast, useToast } from '@chakra-ui/react';
+import { Alert, AlertIcon, Button, ButtonGroup } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import axios from 'axios';
 import { userValidation } from '../PasswordValidation';
+import { StatusAlert } from './StatusAlert';
 
 export const RegisterPanel = () => {
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  const [message, setMessage] = useState();
-
-  const alertToast = useToast();
-  const alertToastRef = useRef();
+  const [status, setStatus] = useState('');
+  const [message, setMessage] = useState([]);
 
   // we got the messages now we just gotta add them to state
   const handleRegister = async e => {
     e.preventDefault();
-    const authUser = await userValidation(password, userName)
-    setMessage(()=>({message:authUser}))
+    const authUser = await userValidation(password, userName);
+    setMessage(authUser);
+    if (authUser.length > 0) setStatus('error');
 
-    console.log(authUser)
+    // console.log('line 25:', message);
+    console.log('line 26:', authUser);
     if (authUser.length < 1) {
-      // console.log('Password and USER is good');
-
+      setMessage([]);
       const createInfo = {
         username: userName,
         email: email,
@@ -44,25 +43,17 @@ export const RegisterPanel = () => {
 
         if (res.status === 201) {
           //set message to res.data
+          setMessage([res.data]);
+          setStatus('success');
           console.log('created:', res.data);
         }
       } catch (err) {
         //set message to err.response.data
-
-        console.log('TRY ERROR:', err.response.data);
+        setMessage([err.response.data]);
+        setStatus('warning');
+        console.log('TRY ERROR:', err.response.data.message);
       }
-    } else {
-      console.log('Please fix your password');
     }
-
-    // const res = await axios.get('https://api.pomodomo.ca/');
-  };
-
-  const handleToast = () => {
-    alertToastRef.current = alertToast({
-      // map the erros then reset it
-      title: 'yaes',
-    });
   };
 
   return (
@@ -96,8 +87,13 @@ export const RegisterPanel = () => {
             setPassword(e.target.value);
           }}
         />
+        {/* MESSAGE ALERT */}
+        {message.length > 0 && (
+          <StatusAlert message={message} status={status} />
+        )}
+
         {/* REGISTER BUTTON */}
-        <Button w="100%" my="4" type="submit">
+        <Button w="100%" mt="4" type="submit">
           Register
         </Button>
         <FormHelperText>
