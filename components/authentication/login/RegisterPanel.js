@@ -6,7 +6,7 @@ import {
 import { Input } from '@chakra-ui/input';
 import { Stack } from '@chakra-ui/layout';
 import { Alert, AlertIcon, Button, ButtonGroup } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { userValidation } from '../PasswordValidation';
 import { StatusAlert } from './StatusAlert';
@@ -15,43 +15,59 @@ export const RegisterPanel = () => {
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [status, setStatus] = useState('');
+  // const [status, setStatus] = useState('');
+  const status = useRef('');
+  const isMounted =useRef(false)
   const [message, setMessage] = useState([]);
 
   // we got the messages now we just gotta add them to state
-  const handleRegister = async e => {
+  // useEffect(() => {
+  //   handleRegister()
+  //   return () => {
+      
+  //   }
+  // }, onsubmit)
+
+  const handleRegister = async (e) => {
     e.preventDefault();
     const authUser = await userValidation(password, userName);
     setMessage(authUser);
     if (authUser.length > 0) {
-      setStatus('error');
+      status.current = 'error';
+      console.log(status.current);
     }
 
     if (authUser.length < 1) {
-      setMessage([]);
-      const createInfo = {
-        username: userName,
-        email: email,
-        password: password,
-      };
+      handlePOST();
+    }
+  };
 
-      try {
-        //post the object to server
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
-          createInfo
-        );
+  const handlePOST = async () => {
+    setMessage([]);
+    const createInfo = {
+      username: userName,
+      email: email,
+      password: password,
+    };
 
-        if (res.status === 201) {
-          //set message to res.data
-          setMessage([res.data]);
-          setStatus('success');
-        }
-      } catch (err) {
-        //set message to err.response.data
-        setMessage([err.response.data]);
-        setStatus('warning');
+    try {
+      //post the object to server
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
+        createInfo
+      );
+
+      if (res.status === 201) {
+        //set message to res.data
+        setMessage([res.data]);
+        status.current = 'success';
+        console.log(status.current);
       }
+    } catch (err) {
+      //set message to err.response.data
+      setMessage([err.response.data]);
+      status.current = 'warning';
+      console.log(status.current);
     }
   };
 

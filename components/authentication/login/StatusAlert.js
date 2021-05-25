@@ -5,12 +5,13 @@ import {
   AlertTitle,
 } from '@chakra-ui/alert';
 import { ListItem, UnorderedList } from '@chakra-ui/layout';
+import { useRef } from 'react';
 
 export const StatusAlert = ({ message, status }) => {
-  // console.log('passthru:', message);
+  console.log('passthru:', message);
+  // status={status} 
   return (
-    // status={status} 
-    <Alert mt="3" rounded='5'>
+    <Alert mt="3" rounded="5">
       <AlertIcon />
       <AlertTitle>
         {status === 'success'
