@@ -37,7 +37,6 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
           min={1}
           max={60}
           onChange={value => {
-            console.log(value);
             handleSessionTime(parseInt(value));
           }}
           keepWithinRange

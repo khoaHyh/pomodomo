@@ -11,7 +11,6 @@ const Pomodoro = () => {
   const [sessionType, setSessionType] = useState(true); // session true = pomoclock , session false = breakclock
   const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
 
-  console.log(isPlaying)
   useEffect(() => {
     let timer = null;
     let extra = null;

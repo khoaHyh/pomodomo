@@ -9,10 +9,25 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const LoginPanel = () => {
-  const { message, setMessage } = useState('');
+  const [message, setMessage] = useState('');
+  const [isSuccess, setSuccess] = useState(false);
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
 
-  const handleLogin = e => {
-    e.preventdefault();
+  console.log(message);
+  console.log(isSuccess);
+
+  const handleLogin = async e => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`
+      );
+      console.log(res);
+    } catch (err) {
+      setSuccess(err.response.data.success);
+      setMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -20,12 +35,22 @@ export const LoginPanel = () => {
       {/* EMAIL */}
       <FormControl id="text">
         <FormLabel>User Name</FormLabel>
-        <Input type="email" />
+        <Input
+          type="text"
+          onChange={e => {
+            setUserName(e.target.value);
+          }}
+        />
       </FormControl>
       {/* PASSWORD */}
       <FormControl id="password">
         <FormLabel>Password</FormLabel>
-        <Input type="password" />
+        <Input
+          type="password"
+          onChange={e => {
+            setPassword(e.target.value);
+          }}
+        />
         {/* LOGIN BUTTON */}
         <Button w="100%" my="4" type="submit">
           Login
