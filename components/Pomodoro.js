@@ -79,7 +79,6 @@ const Pomodoro = () => {
     const valueInSeconds = value * 60;
     if (
       !isPlaying &&
-      sessionType &&
       valueInSeconds <= 3600 &&
       valueInSeconds >= 60
     ) {
@@ -93,7 +92,6 @@ const Pomodoro = () => {
     const valueInSeconds = value * 60;
     if (
       !isPlaying &&
-      !sessionType &&
       valueInSeconds <= 3600 &&
       valueInSeconds >= 60
     ) {
