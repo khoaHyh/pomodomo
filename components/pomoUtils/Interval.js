@@ -1,12 +1,6 @@
 import {
   HStack,
   Text,
-  Box,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   useColorModeValue,
   useNumberInput,
   Button,
@@ -28,19 +22,25 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
     useNumberInput({
       min: 1,
       max: 60,
-      onChange: (value,valueAsNumber) => {
-        handleSessionTime(valueAsNumber);
+      value: sessionTime,
+      onChange: (valString, val) => {
+        // console.log(typeof val);
+        handleSessionTime((sessionTime = val));
       },
       keepWithinRange: true,
-      clampValueOnBlur: true,
+      clampValueonBlur: true,
       allowMouseWheel: true,
     });
 
+  // {
+  //   onClick: () => {
+  //     handleSessionTime(sessionTime + 1);
+  //   },
+  // }
   const increaseTime = getIncrementButtonProps();
   const decreaseTime = getDecrementButtonProps();
   const inputTime = getInputProps();
 
-  console.log(sessionTime);
   return (
     <HStack rounded="lg" width="360px">
       {/* Session label */}
@@ -49,9 +49,9 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
       </Text>
       {/* Input */}
       <Input
+        inputMode="numeric"
         aria-label={`${timeTitle} input`}
         {...inputTime}
-        value={sessionTime}
       ></Input>
       <ButtonGroup isAttached>
         <Button
