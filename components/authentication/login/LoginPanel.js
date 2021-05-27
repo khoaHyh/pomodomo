@@ -14,8 +14,8 @@ export const LoginPanel = () => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  console.log(message);
-  console.log(isSuccess);
+  // console.log(message);
+  // console.log(isSuccess);
 
   const handleLogin = async e => {
     e.preventDefault();

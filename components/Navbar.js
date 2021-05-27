@@ -23,7 +23,6 @@ export const Navbar = () => {
   const [isMobile] = useMediaQuery('(min-width:800px)');
   console.log(isMobile);
 
-
   const handleModal = () => {
     onOpen();
   };
@@ -36,15 +35,16 @@ export const Navbar = () => {
 
   return (
     <Flex
-      w="100vw"
+      w="100%"
       h="6vh"
       box-shadow="xl"
       fontSize={['md', 'xl', 'xl', 'xl']}
-      boxShadow="md"
+      // boxShadow="md"
       justify="space-between"
+      py={8}
     >
       {/* LOGO */}
-      <Stack isInline align="center" m={0} px="4">
+      <Stack isInline align="center" pl='4' spacing='4'>
         <Image
           align="center"
           boxSize={['36px', '48px', '48px', '48px']}
@@ -54,7 +54,7 @@ export const Navbar = () => {
       </Stack>
       {/* BUTTONS */}
 
-      <Stack spacing="5" isInline align="center" px="4">
+      <Stack spacing="4" isInline align="center" pr="4">
         {/* Color mode button */}
         <IconButton
           bg={bg}

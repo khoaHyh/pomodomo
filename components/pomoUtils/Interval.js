@@ -11,10 +11,8 @@ import {
 export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
   const incrementBg = useColorModeValue('green.400', '#33332d');
   const incrementActiveBg = useColorModeValue('green.500', '#33332d');
-
   const decrementBg = useColorModeValue('#db524d', '#33332d');
   const decrementActiveBg = useColorModeValue('white', '#33332d');
-
   const colorIncrement = useColorModeValue('#33332d', 'green.400');
   const colorDecrement = useColorModeValue('#33332d', '#db524d');
 
@@ -42,14 +40,15 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
   const inputTime = getInputProps();
 
   return (
-    <HStack rounded="lg" width="360px">
+    <HStack spacing="2">
       {/* Session label */}
-      <Text id="break-label" as="h1" fontWeight="semibold" pl="4">
+      <Text id="break-label" as="h1" fontWeight="semibold" w="50%">
         {timeTitle}
       </Text>
       {/* Input */}
       <Input
         inputMode="numeric"
+        w={120}
         aria-label={`${timeTitle} input`}
         {...inputTime}
       ></Input>

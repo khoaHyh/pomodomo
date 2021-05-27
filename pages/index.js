@@ -11,7 +11,7 @@ const Index = () => {
         align="center"
         justify="center"
         w="100%"
-        h="94vh"
+        h="93vh"
       >
         <Pomodoro />
       </Flex>
