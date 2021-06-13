@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
-//import { Box, Button, Flex, IconButton, Stack, Image } from '@chakra-ui/react';
+import Link from 'next/link';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
 export const Navbar = () => {
@@ -20,18 +20,12 @@ export const Navbar = () => {
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isMobile] = useMediaQuery('(min-width:800px)');
-  console.log(isMobile);
+  // const [isMobile] = useMediaQuery('(min-width:800px)');
+  // console.log(isMobile);
 
   const handleModal = () => {
     onOpen();
   };
-
-  //{isMobile && (
-  //  <Button position="relative" onClick={handleModal}>
-  //    Login
-  //  </Button>
-  //)}
 
   return (
     <Flex
@@ -44,14 +38,17 @@ export const Navbar = () => {
       py={8}
     >
       {/* LOGO */}
-      <Stack isInline align="center" pl='4' spacing='4'>
-        <Image
-          align="center"
-          boxSize={['36px', '48px', '48px', '48px']}
-          fallbackSrc="./images/tomato.png"
-        />
-        <Box fontWeight="semibold">Pomodomo</Box>
-      </Stack>
+      <Link href="/">
+        <Stack isInline align="center" pl="4" spacing="4" userSelect='none'>
+          <Image
+            align="center"
+            boxSize={['36px', '48px', '48px', '48px']}
+            fallbackSrc="./images/tomato.png"
+          />
+          <Box fontWeight="semibold">Pomodomo</Box>
+        </Stack>
+      </Link>
+
       {/* BUTTONS */}
 
       <Stack spacing="4" isInline align="center" pr="4">

@@ -34,7 +34,6 @@ const Verification = () => {
   return (
     <Flex align="center" justifyContent="center" direction="column">
       <Navbar />
-
       <Box fontSize="xl" pt="8" px="4">
         You are{' '}
         {verified
