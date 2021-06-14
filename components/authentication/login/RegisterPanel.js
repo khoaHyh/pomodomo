@@ -17,18 +17,10 @@ export const RegisterPanel = () => {
   const [password, setPassword] = useState();
   // const [status, setStatus] = useState('');
   const status = useRef('');
-  const isMounted =useRef(false)
+  const isMounted = useRef(false);
   const [message, setMessage] = useState([]);
 
-  // we got the messages now we just gotta add them to state
-  // useEffect(() => {
-  //   handleRegister()
-  //   return () => {
-      
-  //   }
-  // }, onsubmit)
-
-  const handleRegister = async (e) => {
+  const handleRegister = async e => {
     e.preventDefault();
     const authUser = await userValidation(password, userName);
     setMessage(authUser);
@@ -61,6 +53,10 @@ export const RegisterPanel = () => {
         //set message to res.data
         setMessage([res.data]);
         status.current = 'success';
+        console.log(status.current);
+      } else {
+        setMessage([res.data]);
+        status.current = 'warning';
         console.log(status.current);
       }
     } catch (err) {
