@@ -11,6 +11,9 @@ const Pomodoro = () => {
   const [sessionType, setSessionType] = useState(true); // session true = pomoclock , session false = breakclock
   const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
 
+  // console.log(pomoTime);
+  // console.log(breakTime);
+
   useEffect(() => {
     let timer = null;
     let extra = null;
@@ -23,16 +26,15 @@ const Pomodoro = () => {
       }
     };
 
-    if (isPlaying && timerPointer) {
+    if (isPlaying && timerPointer > 0) {
       timer = setInterval(() => {
         setTimerPointer((time = 1) => time - 1);
-      }, 1000);
+      }, 1);
     } else if (!timerPointer) {
       extra = setInterval(() => {
         setSessionType(!sessionType);
         handleSwitch(!sessionType);
       }, 1000);
-      clearInterval(timer);
     }
 
     return () => {
@@ -77,12 +79,7 @@ const Pomodoro = () => {
   // handle changes to pomodoro time input
   const handlePomoTime = value => {
     const valueInSeconds = value * 60;
-    if (
-      !isPlaying &&
-      sessionType &&
-      valueInSeconds <= 3600 &&
-      valueInSeconds >= 60
-    ) {
+    if (!isPlaying && valueInSeconds <= 3600 && valueInSeconds >= 60) {
       setPomoTime(valueInSeconds);
       setTimerPointer(valueInSeconds);
     }
@@ -91,14 +88,9 @@ const Pomodoro = () => {
   // handle changes to break time input
   const handleBreakTime = value => {
     const valueInSeconds = value * 60;
-    if (
-      !isPlaying &&
-      !sessionType &&
-      valueInSeconds <= 3600 &&
-      valueInSeconds >= 60
-    ) {
+    if (!isPlaying && valueInSeconds <= 3600 && valueInSeconds >= 60) {
       setBreakTime(valueInSeconds);
-      setTimerPointer(valueInSeconds);
+      // setTimerPointer(valueInSeconds);
     }
   };
 
@@ -111,16 +103,20 @@ const Pomodoro = () => {
   };
 
   return (
-    <Box
+    <Stack
+      direction="column"
       id="container-pomodoro"
-      boxShadow="xl"
-      alignContent="center"
+      // boxShadow="xl"
+      // border="1px"
+      align="center"
+      justify="center"
       p={5}
-      width={['100%', '80%', '60%', '45%', '35%']}
+      h={['md', 'md', 'lg', 'lg']}
+      w={['s', 'md', 'lg', 'lg']}
       rounded="xl"
     >
       {/* TIMER DISPLAY  */}
-      <Stack align="center">
+      <Stack direction="column" verticalAlign align="center">
         <Box>
           {sessionType && (
             <TimerDisplay
@@ -140,7 +136,7 @@ const Pomodoro = () => {
 
         {/* SESSION MANIPULATION 
                  MAKE SURE YOU ALSO ADD IN HANDLESESSIONSECOND */}
-        <Box minW="219px">
+        <Box minW="348px">
           <SessionSetters
             isPlaying={isPlaying}
             handlePlay={handlePlayBool}
@@ -148,7 +144,7 @@ const Pomodoro = () => {
           />
         </Box>
         {/* HANDLE SESSION LENGTH */}
-        <Stack direction="column" align="center">
+        <Stack minW="348px">
           <Box>
             <Interval
               sessionTime={minuteHandler(pomoTime)}
@@ -166,7 +162,7 @@ const Pomodoro = () => {
           </Box>
         </Stack>
       </Stack>
-    </Box>
+    </Stack>
   );
 };
 

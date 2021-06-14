@@ -2,7 +2,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 export const TimerDisplay = props => {
   return (
-    <Box textAlign="center" minW="219px">
+    <Box textAlign="center" >
       <Text fontWeight="hairline" fontSize="8xl" id="time-left">
         {' '}
         {props.minuteHandle + ':' + props.secondsHandle}
