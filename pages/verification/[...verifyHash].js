@@ -18,6 +18,8 @@ const Verification = () => {
         );
         if (res.status === 204) {
           setVerified(true);
+        } else {
+          setVerified(false);
         }
       } catch (err) {
         setVerified(false);
