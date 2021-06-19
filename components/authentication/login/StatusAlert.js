@@ -11,18 +11,18 @@ import { ListItem, UnorderedList } from '@chakra-ui/layout';
 // Goal: Only updates on submit...
 // How: Didcomponentmount lifecycle...
 export const StatusAlert = ({ message, status = 'warning' }) => {
-  // console.log('passthru:', message);
+  console.log('passthru:', message);
   return (
     <Alert mt="3" rounded="5">
       <AlertIcon />
       <AlertTitle>
-        {status === 'success'
+        {message === 'success'
           ? 'Your account has been made!'
           : 'Please fix the following:'}
         <AlertDescription fontSize="xs">
           <UnorderedList>
             {message.map((item, index) => {
-              return <ListItem key={`status${index}`}>{item}</ListItem>;
+              return <ListItem key={`status${index}`}>{item.message}</ListItem>;
             })}
           </UnorderedList>
         </AlertDescription>

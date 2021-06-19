@@ -28,7 +28,7 @@ export const LoginPanel = () => {
       );
 
       setSuccess(res.data.success);
-      setMessage([res.data.message]);
+      setMessage([{ message: res.data.message }]);
       console.log(res);
 
       // res.
@@ -36,7 +36,7 @@ export const LoginPanel = () => {
       if (err.response !== null) {
         // console.log(err.response);
         setSuccess(err.response.data.success);
-        setMessage([err.response.data.message]);
+        setMessage([{ message: err.response.data.message }]);
         // console.log(err.response.data.message);
       }
     }
