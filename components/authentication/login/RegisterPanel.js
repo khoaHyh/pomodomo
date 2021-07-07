@@ -15,18 +15,17 @@ export const RegisterPanel = () => {
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [status, setStatus] = useState('');
-  const status = useRef('');
+  const [status, setStatus] = useState('');
   const isMounted = useRef(false);
   const [message, setMessage] = useState([]);
 
+  
   const handleRegister = async e => {
     e.preventDefault();
     const authUser = await userValidation(password, userName);
     setMessage(authUser);
     if (authUser.length > 0) {
-      status.current = 'error';
-      console.log(status.current);
+      setStatus('warning');
     }
 
     if (authUser.length < 1) {
@@ -48,22 +47,18 @@ export const RegisterPanel = () => {
         `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
         createInfo
       );
-
       if (res.status === 201) {
         //set message to res.data
         setMessage([res.data]);
-        status.current = 'success';
-        console.log(status.current);
+        setStatus('success');
       } else {
         setMessage([res.data]);
-        status.current = 'warning';
-        console.log(status.current);
+        setStatus('warning');
       }
     } catch (err) {
       //set message to err.response.data
       setMessage([err.response.data]);
-      status.current = 'warning';
-      console.log(status.current);
+      setStatus('warngin');
     }
   };
 
@@ -114,3 +109,5 @@ export const RegisterPanel = () => {
     </form>
   );
 };
+
+
