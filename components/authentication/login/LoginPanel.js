@@ -4,7 +4,7 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { StatusAlert } from './StatusAlert';
 import axios from 'axios';
 import { useState } from 'react';
@@ -23,11 +23,12 @@ export const LoginPanel = () => {
         `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
         { username: userName, password: password }
       );
-      setSuccess(res.data.success);
+      setSuccess( res.data.success);
       setMessage([{ message: res.data.message }]);
-      if(isSuccess){
+      // if(isSuccess){
+        console.log(res.data)
         window.localStorage.setItem("isLoggedIn",true);
-      }
+      // }
     } catch (err) {
       if (err.response !== null) {
         setSuccess(err.response.data.success);

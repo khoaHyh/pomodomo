@@ -29,8 +29,7 @@ export const StatusAlert = ({ message, status }) => {
     <Alert mt="3" rounded="5" status={alertStatus||"warning"}>
       <AlertIcon />
       <AlertTitle>
-         Please check the following:
-        <AlertDescription fontSize="xs">
+        <AlertDescription fontSize="s">
           <UnorderedList>
             {message.map((item, index) => {
               return <ListItem key={`status${index}`}>{item.message}</ListItem>;

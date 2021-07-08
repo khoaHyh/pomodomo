@@ -4,9 +4,8 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { Stack } from '@chakra-ui/layout';
-import { Alert, AlertIcon, Button, ButtonGroup } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { Button } from '@chakra-ui/react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import { userValidation } from '../authUtils';
 import { StatusAlert } from './StatusAlert';
@@ -19,7 +18,6 @@ export const RegisterPanel = () => {
   const isMounted = useRef(false);
   const [message, setMessage] = useState([]);
 
-  
   const handleRegister = async e => {
     e.preventDefault();
     const authUser = await userValidation(password, userName);
@@ -109,5 +107,3 @@ export const RegisterPanel = () => {
     </form>
   );
 };
-
-
