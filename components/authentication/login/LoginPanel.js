@@ -15,9 +15,6 @@ export const LoginPanel = () => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  // console.log(message);
-  // console.log(isSuccess);
-
   const handleLogin = async e => {
     e.preventDefault();
     try {
@@ -26,18 +23,15 @@ export const LoginPanel = () => {
         `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
         { username: userName, password: password }
       );
-
       setSuccess(res.data.success);
       setMessage([{ message: res.data.message }]);
-      console.log(res);
-
-      // res.
+      if(isSuccess){
+        window.localStorage.setItem("isLoggedIn",true);
+      }
     } catch (err) {
       if (err.response !== null) {
-        // console.log(err.response);
         setSuccess(err.response.data.success);
         setMessage([{ message: err.response.data.message }]);
-        // console.log(err.response.data.message);
       }
     }
   };
@@ -67,7 +61,9 @@ export const LoginPanel = () => {
         <Button w="100%" my="4" type="submit">
           Login
         </Button>
-        {message.length > 0 && <StatusAlert message={message} />}
+        {message.length>=1&& <StatusAlert message={message} />}
+        {/* {isSuccess&& <StatusAlert message={message} status={"success"}/>} */}
+
         {/* status={status} */}
         {/* HELPER */}
         <FormHelperText>
