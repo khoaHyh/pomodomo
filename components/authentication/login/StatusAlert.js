@@ -26,7 +26,7 @@ export const StatusAlert = ({ message, status }) => {
     };
   }, []);
   return (
-    <Alert mt="3" rounded="5" status={alertStatus||"warning"}>
+    <Alert mt="3" rounded="5" status={"warning"}>
       <AlertIcon />
       <AlertTitle>
         <AlertDescription fontSize="s">

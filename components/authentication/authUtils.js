@@ -127,10 +127,16 @@ const userValidation = async (password = '', userName = '') => {
 };
 
 const logoutUser = async () => {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`
-  );
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`);
   return res.data;
 };
 
-export { userValidation,logoutUser };
+const registerUser = async (newUserSchema) => {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
+    newUserSchema
+  );
+  return res;
+};
+
+export { userValidation, logoutUser, registerUser };
