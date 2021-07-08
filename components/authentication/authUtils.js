@@ -10,6 +10,16 @@ const lowerCaseCheck = password => {
   return true;
 };
 
+const alphanumRegex = /^[0-9a-zA-Z]{6,}$/i;
+// validate username with regex criteria
+const userCheck = userName => {
+  if (userName.length < 6) {
+    return false;
+  } else {
+    if (alphanumRegex.test(userName)) return true;
+    else return false;
+  }
+};
 // Validate uppercase letters
 const upperCaseCheck = password => {
   let upperCaseLetters = /[A-Z]/g;
@@ -116,15 +126,5 @@ const userValidation = async (password = '', userName = '') => {
   return errorCollection;
 };
 
-const alphanumRegex = /^[0-9a-zA-Z]{6,}$/i;
-
-const userCheck = userName => {
-  if (userName.length < 6) {
-    return false;
-  } else {
-    if (alphanumRegex.test(userName)) return true;
-    else return false;
-  }
-};
 
 export { userValidation };

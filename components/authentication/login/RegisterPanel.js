@@ -8,7 +8,7 @@ import { Stack } from '@chakra-ui/layout';
 import { Alert, AlertIcon, Button, ButtonGroup } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { userValidation } from '../PasswordValidation';
+import { userValidation } from '../authUtils';
 import { StatusAlert } from './StatusAlert';
 
 export const RegisterPanel = () => {
