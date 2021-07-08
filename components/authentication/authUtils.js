@@ -126,5 +126,11 @@ const userValidation = async (password = '', userName = '') => {
   return errorCollection;
 };
 
+const logoutUser = async () => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`
+  );
+  return res.data;
+};
 
-export { userValidation };
+export { userValidation,logoutUser };
