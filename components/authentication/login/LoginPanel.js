@@ -23,11 +23,10 @@ export const LoginPanel = () => {
         `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
         { username: userName, password: password }
       );
-      setSuccess( res.data.success);
+      setSuccess(res.data.success);
       setMessage([{ message: res.data.message }]);
-      // if(isSuccess){
-        console.log(res.data)
-        window.localStorage.setItem("isLoggedIn",true);
+      // console.log(res.data);
+      window.localStorage.setItem('isLoggedIn', true);
       // }
     } catch (err) {
       if (err.response !== null) {
@@ -62,10 +61,7 @@ export const LoginPanel = () => {
         <Button w="100%" my="4" type="submit">
           Login
         </Button>
-        {message.length>=1&& <StatusAlert message={message} />}
-        {/* {isSuccess&& <StatusAlert message={message} status={"success"}/>} */}
-
-        {/* status={status} */}
+        {message.length >= 1 && <StatusAlert message={message} />}
         {/* HELPER */}
         <FormHelperText>
           We'll never share your email or password.

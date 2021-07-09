@@ -5,7 +5,6 @@ import {
   IconButton,
   Stack,
   Image,
-  useMediaQuery,
   useColorMode,
   useColorModeValue,
   useDisclosure,
@@ -13,18 +12,39 @@ import {
 import Link from 'next/link';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
+import { useEffect, useState } from 'react';
+import { logoutUser } from './authentication/authUtils';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
   const bg = useColorModeValue('#db524d', '#33332d');
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [isMobile] = useMediaQuery('(min-width:800px)');
-  // console.log(isMobile);
+  const [getLoginBool, setLoginBool] = useState(false);
+
+  useEffect(() => {
+    // onload set login to false
+    const landingSession =
+      JSON.parse(window.localStorage.getItem('isLoggedIn')) === null
+        ? false
+        : JSON.parse(window.localStorage.getItem('isLoggedIn'));
+    // console.log(landingSession);
+    setLoginBool(landingSession);
+  }, [isOpen, onOpen, onClose, getLoginBool, setLoginBool]);
 
   const handleModal = () => {
+    // handles the opening of login/register modal
     onOpen();
+  };
+
+  const handleLogout = async () => {
+    try {
+      const res = await logoutUser();
+      window.localStorage.setItem('isLoggedIn', false);
+      setLoginBool(window.localStorage.getItem('isLoggedIn'));
+    } catch (error) {
+      console.log('error');
+    }
   };
 
   return (
@@ -39,7 +59,7 @@ export const Navbar = () => {
     >
       {/* LOGO */}
       <Link href="/">
-        <Stack isInline align="center" pl="4" spacing="4" userSelect='none'>
+        <Stack isInline align="center" pl="4" spacing="4" userSelect="none">
           <Image
             align="center"
             boxSize={['36px', '48px', '48px', '48px']}
@@ -59,10 +79,18 @@ export const Navbar = () => {
           icon={<SwitchIcon />}
           onClick={toggleColorMode}
         />
+        {/* logout button */}
+        {getLoginBool && (
+          <Button position="relative" onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
         {/* Login button */}
-        <Button position="relative" onClick={handleModal}>
-          Login
-        </Button>
+        {!getLoginBool && (
+          <Button position="relative" onClick={handleModal}>
+            Login
+          </Button>
+        )}
 
         <LoginModal onClose={onClose} isOpen={isOpen} />
       </Stack>
