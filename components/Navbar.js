@@ -28,7 +28,6 @@ export const Navbar = () => {
       JSON.parse(window.localStorage.getItem('isLoggedIn')) === null
         ? false
         : JSON.parse(window.localStorage.getItem('isLoggedIn'));
-    // console.log(landingSession);
     setLoginBool(landingSession);
   }, [isOpen, onOpen, onClose, getLoginBool, setLoginBool]);
 
@@ -43,7 +42,6 @@ export const Navbar = () => {
       window.localStorage.setItem('isLoggedIn', false);
       setLoginBool(window.localStorage.getItem('isLoggedIn'));
     } catch (error) {
-      console.log('error');
     }
   };
 

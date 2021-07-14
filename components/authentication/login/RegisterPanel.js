@@ -6,7 +6,6 @@ import {
 import { Input } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
-import axios from 'axios';
 import { userValidation, registerUser } from '../authUtils';
 import { StatusAlert } from './StatusAlert';
 

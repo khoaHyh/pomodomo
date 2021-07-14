@@ -18,14 +18,12 @@ export const LoginPanel = () => {
   const handleLogin = async e => {
     e.preventDefault();
     try {
-      // setMessage();
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
         { username: userName, password: password }
       );
       setSuccess(res.data.success);
       setMessage([{ message: res.data.message }]);
-      // console.log(res.data);
       window.localStorage.setItem('isLoggedIn', true);
       // }
     } catch (err) {
