@@ -25,6 +25,7 @@ export const LoginPanel = () => {
       setSuccess(res.data.success);
       setMessage([{ message: res.data.message }]);
       window.localStorage.setItem('isLoggedIn', true);
+      window.localStorage.setItem('user', userName);
       // }
     } catch (err) {
       if (err.response !== null) {
