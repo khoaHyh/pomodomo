@@ -15,7 +15,6 @@ const Index = () => {
         direction="column"
         align="center"
         justify="center"
-        w="100%"
         h="93vh"
       >
         <Pomodoro />
