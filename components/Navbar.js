@@ -8,12 +8,22 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
 import { useEffect, useState } from 'react';
 import { logoutUser } from './authentication/authUtils';
+import { getUsername } from './userProfile/profileUtils';
+import { UserBox } from './userProfile/UserBox';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
   const bg = useColorModeValue('#db524d', '#33332d');
@@ -41,8 +51,7 @@ export const Navbar = () => {
       const res = await logoutUser();
       window.localStorage.setItem('isLoggedIn', false);
       setLoginBool(window.localStorage.getItem('isLoggedIn'));
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -52,7 +61,7 @@ export const Navbar = () => {
       box-shadow="xl"
       fontSize={['md', 'xl', 'xl', 'xl']}
       // boxShadow="md"
-      justify="space-between"
+      justify="space-evenly"
       py={8}
     >
       {/* LOGO */}
@@ -69,14 +78,20 @@ export const Navbar = () => {
 
       {/* BUTTONS */}
 
-      <Stack spacing="4" isInline align="center" pr="4">
-        {/* Color mode button */}
-        <IconButton
-          bg={bg}
-          aria-label={`Switch to ${text} mode`}
-          icon={<SwitchIcon />}
-          onClick={toggleColorMode}
-        />
+      <Stack spacing={[2,3,4]} isInline align="center" pr="4">
+        {/* User data button */}
+        {getLoginBool && (
+          <Popover trigger="hover">
+            <PopoverTrigger>
+              <Button>{getUsername()}</Button>
+            </PopoverTrigger>
+            <PopoverContent borderRadius="xl" w='70%'>
+              <PopoverArrow />
+              <PopoverHeader fontWeight="bold">{getUsername()}</PopoverHeader>
+              <UserBox />
+            </PopoverContent>
+          </Popover>
+        )}
         {/* logout button */}
         {getLoginBool && (
           <Button position="relative" onClick={handleLogout}>
@@ -89,6 +104,14 @@ export const Navbar = () => {
             Login
           </Button>
         )}
+
+        {/* Color mode button */}
+        <IconButton
+          bg={bg}
+          aria-label={`Switch to ${text} mode`}
+          icon={<SwitchIcon />}
+          onClick={toggleColorMode}
+        />
 
         <LoginModal onClose={onClose} isOpen={isOpen} />
       </Stack>
