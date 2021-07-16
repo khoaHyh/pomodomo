@@ -2,6 +2,8 @@ import axios from 'axios';
 import crypto from 'crypto';
 import { resolve } from 'path';
 // Validate lowercase letters
+axios.defaults.withCredentials = true;
+
 const lowerCaseCheck = password => {
   let lowerCaseLetters = /[a-z]/g;
   if (!lowerCaseLetters.test(password)) {
@@ -125,13 +127,18 @@ const userValidation = async (password = '', userName = '') => {
   }
   return errorCollection;
 };
-
 const logoutUser = async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`);
-  return res.data;
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
-const registerUser = async (newUserSchema) => {
+const registerUser = async newUserSchema => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
     newUserSchema
@@ -139,4 +146,19 @@ const registerUser = async (newUserSchema) => {
   return res;
 };
 
-export { userValidation, logoutUser, registerUser };
+const loginUser = async (userName, password) => {
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
+      {
+        username: userName,
+        password: password,
+      }
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export { userValidation, logoutUser, registerUser, loginUser };

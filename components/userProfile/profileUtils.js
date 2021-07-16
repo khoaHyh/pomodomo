@@ -1,18 +1,23 @@
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
 const getUsername = () => {
   return window.localStorage.getItem('user');
 };
 
-// http request : GET
 const getUserData = async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${'/'}`);
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}${'/profile'}`
+    );
+    // console.log(res);
+    return res;
+  } catch (error) {
+    // console.log(error);
+    return error;
+  }
 };
 
-// http request : PATCH
-// req params:
-// hours_focused
-// pomodoros_completed
-const patchUserData = () => {};
+const patchUserData = async () => {};
 
 export { getUsername, getUserData, patchUserData };

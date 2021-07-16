@@ -8,6 +8,7 @@ import { Button } from '@chakra-ui/react';
 import { StatusAlert } from './StatusAlert';
 import axios from 'axios';
 import { useState } from 'react';
+import { loginUser } from '../authUtils';
 
 export const LoginPanel = () => {
   const [message, setMessage] = useState([]);
@@ -18,15 +19,11 @@ export const LoginPanel = () => {
   const handleLogin = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}${'/login'}`,
-        { username: userName, password: password }
-      );
+      const res = await loginUser(userName, password);
       setSuccess(res.data.success);
       setMessage([{ message: res.data.message }]);
       window.localStorage.setItem('isLoggedIn', true);
       window.localStorage.setItem('user', userName);
-      // }
     } catch (err) {
       if (err.response !== null) {
         setSuccess(err.response.data.success);
