@@ -12,10 +12,8 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
-  PopoverBody,
   PopoverFooter,
   PopoverArrow,
-  PopoverCloseButton,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
@@ -51,7 +49,9 @@ export const Navbar = () => {
       const res = await logoutUser();
       window.localStorage.setItem('isLoggedIn', false);
       setLoginBool(window.localStorage.getItem('isLoggedIn'));
-    } catch (error) {}
+    } catch (error) {
+      // console.log(error);
+    }
   };
 
   return (
@@ -78,14 +78,14 @@ export const Navbar = () => {
 
       {/* BUTTONS */}
 
-      <Stack spacing={[2,3,4]} isInline align="center" pr="4">
+      <Stack spacing={[2, 3, 4]} isInline align="center" pr="4">
         {/* User data button */}
         {getLoginBool && (
           <Popover trigger="hover">
             <PopoverTrigger>
-              <Button>{getUsername()}</Button>
+              <Button bg='blackAlpha.900'>{getUsername()}</Button>
             </PopoverTrigger>
-            <PopoverContent borderRadius="xl" w='70%'>
+            <PopoverContent w="75%">
               <PopoverArrow />
               <PopoverHeader fontWeight="bold">{getUsername()}</PopoverHeader>
               <UserBox />
@@ -94,20 +94,20 @@ export const Navbar = () => {
         )}
         {/* logout button */}
         {getLoginBool && (
-          <Button position="relative" onClick={handleLogout}>
+          <Button bg='blackAlpha.900' position="relative" onClick={handleLogout}>
             Logout
           </Button>
         )}
         {/* Login button */}
         {!getLoginBool && (
-          <Button position="relative" onClick={handleModal}>
+          <Button bg='blackAlpha.900' position="relative" onClick={handleModal}>
             Login
           </Button>
         )}
 
         {/* Color mode button */}
         <IconButton
-          bg={bg}
+          bg='blackAlpha.900'
           aria-label={`Switch to ${text} mode`}
           icon={<SwitchIcon />}
           onClick={toggleColorMode}
