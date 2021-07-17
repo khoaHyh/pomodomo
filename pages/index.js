@@ -5,18 +5,17 @@ import Pomodoro from '../components/Pomodoro';
 
 const Index = () => {
   useEffect(() => {
-    window.localStorage.setItem('isLoggedIn', false);
+    const isLoggedIn =
+      window.localStorage.getItem('isLoggedIn') === null
+        ? false
+        : window.localStorage.getItem('isLoggedIn');
+    window.localStorage.setItem('isLoggedIn', isLoggedIn);
   }, []);
 
   return (
     <Flex direction="column" align="center" justify="center">
       <Navbar />
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        h="93vh"
-      >
+      <Flex direction="column" align="center" justify="center" h="93vh">
         <Pomodoro />
       </Flex>
     </Flex>
