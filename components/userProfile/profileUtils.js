@@ -17,6 +17,16 @@ const getUserData = async () => {
   }
 };
 
-const patchUserData = async () => {};
+const patchUserData = async (hours, completed) => {
+  try {
+    const res = axios.patch(`${process.env.NEXT_PUBLIC_API_URL}${'/profile'}`, {
+      hours,
+      completed,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
 
 export { getUsername, getUserData, patchUserData };
