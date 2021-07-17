@@ -22,8 +22,8 @@ const getUserData = async () => {
 const patchUserData = async (hours, completed) => {
   try {
     const res = axios.patch(`${process.env.NEXT_PUBLIC_API_URL}${'/profile'}`, {
-      hours,
-      completed,
+      hours_focused: hours,
+      pomodoros_completed: completed,
     });
     return res;
   } catch (error) {
