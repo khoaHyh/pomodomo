@@ -14,7 +14,7 @@ export const UserBox = () => {
 
   const getValues = async () => {
     const userData = await getUserData();
-    console.log(userData);
+    window.localStorage.setItem('userData', JSON.stringify(userData.data));
     setPomoCompleted(userData.data.pomodoros_completed);
     setPomoDaysLogged(userData.data.days_logged);
     setPomoHours(userData.data.hours_focused);
