@@ -14,7 +14,6 @@ export const UserBox = () => {
 
   const getValues = async () => {
     const userData = await getUserData();
-    window.localStorage.setItem('userData', JSON.stringify(userData.data));
     setPomoCompleted(userData.data.pomodoros_completed);
     setPomoDaysLogged(userData.data.days_logged);
     setPomoHours(userData.data.hours_focused);
@@ -22,6 +21,7 @@ export const UserBox = () => {
   return (
     <Box>
       <Flex py="3" pl="3" direction="column">
+      
         <Text fontSize="md">Completed Pomos: {pomoCompleted}</Text>
         <Text fontSize="md">Hours Focused: {pomoHours}</Text>
         <Divider pt="3"></Divider>

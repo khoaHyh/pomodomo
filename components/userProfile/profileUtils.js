@@ -11,6 +11,8 @@ const getUserData = async () => {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}${'/profile'}`
     );
+    window.localStorage.setItem('userData', JSON.stringify(res.data));
+
     return res;
   } catch (error) {
     return error;
