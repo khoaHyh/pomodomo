@@ -116,7 +116,7 @@ const Pomodoro = () => {
       rounded="xl"
     >
       {/* TIMER DISPLAY  */}
-      <Stack direction="column" verticalAlign align="center">
+      <Stack direction="column" verticalAlign align="center" boxShadow='2xl' p='4' borderRadius='xl'>
         <Box>
           {sessionType && (
             <TimerDisplay

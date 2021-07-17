@@ -5,26 +5,53 @@ import {
   IconButton,
   Stack,
   Image,
-  useMediaQuery,
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverFooter,
+  PopoverArrow,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
+import { useEffect, useState } from 'react';
+import { logoutUser } from './authentication/authUtils';
+import { getUsername } from './userProfile/profileUtils';
+import { UserBox } from './userProfile/UserBox';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
   const bg = useColorModeValue('#db524d', '#33332d');
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [isMobile] = useMediaQuery('(min-width:800px)');
-  // console.log(isMobile);
+  const [getLoginBool, setLoginBool] = useState(false);
+
+  useEffect(() => {
+    // onload set login to false
+    const landingSession =
+      JSON.parse(window.localStorage.getItem('isLoggedIn')) === null
+        ? false
+        : JSON.parse(window.localStorage.getItem('isLoggedIn'));
+    setLoginBool(landingSession);
+  }, [isOpen, onOpen, onClose, getLoginBool, setLoginBool]);
 
   const handleModal = () => {
+    // handles the opening of login/register modal
     onOpen();
+  };
+
+  const handleLogout = async () => {
+    try {
+      const res = await logoutUser();
+      window.localStorage.setItem('isLoggedIn', false);
+      setLoginBool(window.localStorage.getItem('isLoggedIn'));
+    } catch (error) {
+      // console.log(error);
+    }
   };
 
   return (
@@ -34,12 +61,12 @@ export const Navbar = () => {
       box-shadow="xl"
       fontSize={['md', 'xl', 'xl', 'xl']}
       // boxShadow="md"
-      justify="space-between"
+      justify="space-evenly"
       py={8}
     >
       {/* LOGO */}
       <Link href="/">
-        <Stack isInline align="center" pl="4" spacing="4" userSelect='none'>
+        <Stack isInline align="center" pl="4" spacing="4" userSelect="none">
           <Image
             align="center"
             boxSize={['36px', '48px', '48px', '48px']}
@@ -51,18 +78,40 @@ export const Navbar = () => {
 
       {/* BUTTONS */}
 
-      <Stack spacing="4" isInline align="center" pr="4">
+      <Stack spacing={[2, 3, 4]} isInline align="center" pr="4">
+        {/* User data button */}
+        {getLoginBool && (
+          <Popover trigger="hover">
+            <PopoverTrigger>
+              <Button bg='blackAlpha.900'>{getUsername()}</Button>
+            </PopoverTrigger>
+            <PopoverContent w="75%">
+              <PopoverArrow />
+              <PopoverHeader fontWeight="bold">{getUsername()}</PopoverHeader>
+              <UserBox />
+            </PopoverContent>
+          </Popover>
+        )}
+        {/* logout button */}
+        {getLoginBool && (
+          <Button bg='blackAlpha.900' position="relative" onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
+        {/* Login button */}
+        {!getLoginBool && (
+          <Button bg='blackAlpha.900' position="relative" onClick={handleModal}>
+            Login
+          </Button>
+        )}
+
         {/* Color mode button */}
         <IconButton
-          bg={bg}
+          bg='blackAlpha.900'
           aria-label={`Switch to ${text} mode`}
           icon={<SwitchIcon />}
           onClick={toggleColorMode}
         />
-        {/* Login button */}
-        <Button position="relative" onClick={handleModal}>
-          Login
-        </Button>
 
         <LoginModal onClose={onClose} isOpen={isOpen} />
       </Stack>

@@ -5,24 +5,34 @@ import {
   AlertTitle,
 } from '@chakra-ui/alert';
 import { ListItem, UnorderedList } from '@chakra-ui/layout';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+// Problem:
+// Component loads everytime a user types anything
+// Goal: Only updates on submit...
+// How: componentdidmount lifecycle...
 export const StatusAlert = ({ message, status }) => {
-  console.log('passthru:', message);
-  // status={status} 
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertStatus, setAlertStatus] = useState('');
+
+  useEffect(() => {
+    let isMounted = false;
+    if (!isMounted) {
+      setAlertMessage(message);
+      setAlertStatus(status);
+    }
+    return () => {
+      isMounted = true;
+    };
+  }, []);
   return (
-    <Alert mt="3" rounded="5">
+    <Alert mt="3" rounded="5" status={"warning"}>
       <AlertIcon />
       <AlertTitle>
-        {status === 'success'
-          ? 'Your account has been made!'
-          : 'Please fix the following:'}
-        <AlertDescription fontSize="xs">
+        <AlertDescription fontSize="s">
           <UnorderedList>
-            {message.map((status, index) => {
-              return (
-                <ListItem key={`status${index}`}>{status.message}</ListItem>
-              );
+            {message.map((item, index) => {
+              return <ListItem key={`status${index}`}>{item.message}</ListItem>;
             })}
           </UnorderedList>
         </AlertDescription>

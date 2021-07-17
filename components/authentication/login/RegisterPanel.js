@@ -4,20 +4,16 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { Stack } from '@chakra-ui/layout';
-import { Alert, AlertIcon, Button, ButtonGroup } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import { userValidation } from '../PasswordValidation';
+import { Button } from '@chakra-ui/react';
+import { useRef, useState } from 'react';
+import { userValidation, registerUser } from '../authUtils';
 import { StatusAlert } from './StatusAlert';
 
 export const RegisterPanel = () => {
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [status, setStatus] = useState('');
-  const status = useRef('');
-  const isMounted = useRef(false);
+  const [status, setStatus] = useState('');
   const [message, setMessage] = useState([]);
 
   const handleRegister = async e => {
@@ -25,8 +21,7 @@ export const RegisterPanel = () => {
     const authUser = await userValidation(password, userName);
     setMessage(authUser);
     if (authUser.length > 0) {
-      status.current = 'error';
-      console.log(status.current);
+      setStatus('warning');
     }
 
     if (authUser.length < 1) {
@@ -44,26 +39,14 @@ export const RegisterPanel = () => {
 
     try {
       //post the object to server
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
-        createInfo
-      );
+      const res = await registerUser(createInfo);
 
-      if (res.status === 201) {
-        //set message to res.data
-        setMessage([res.data]);
-        status.current = 'success';
-        console.log(status.current);
-      } else {
-        setMessage([res.data]);
-        status.current = 'warning';
-        console.log(status.current);
-      }
+      setMessage([res.data]);
+      setStatus('warning');
     } catch (err) {
       //set message to err.response.data
       setMessage([err.response.data]);
-      status.current = 'warning';
-      console.log(status.current);
+      setStatus('warning');
     }
   };
 
