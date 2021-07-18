@@ -43,7 +43,6 @@ export const Navbar = () => {
         ? false
         : JSON.parse(window.localStorage.getItem('isLoggedIn'));
     setLoginBool(landingSession);
-    // window.addeventlistener
   }, [isOpen, onOpen, onClose, getLoginBool, setLoginBool]);
 
   const handleModal = () => {
