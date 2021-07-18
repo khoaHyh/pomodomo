@@ -1,31 +1,45 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { getUserData } from './profileUtils';
 
-export const UserBox = () => {
+export const UserBox = React.forwardRef((props, ref) => {
   const [pomoHours, setPomoHours] = useState();
   const [pomoCompleted, setPomoCompleted] = useState();
   const [pomoDaysLogged, setPomoDaysLogged] = useState();
-  const [isHover, setIsHover] = useState(false);
+  const [isLogged, setIsLogged] = useState();
   useEffect(() => {
-    const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
-    if (loggedIn === true) {
-      window.addEventListener('storage', getValues());
+    // console.log(isLogged);
+    setIsLogged(JSON.parse(localStorage.getItem('isLoggedIn')));
+    if (isLogged) {
+      getValues();
     }
+    window.addEventListener('storage', getValues());
     return () => {
       window.removeEventListener('storage', getValues());
     };
   }, []);
 
-  const getValues = useCallback(async () => {
-    console.log('boom');
-    const userData =
-      JSON.parse(window.localStorage.getItem('userData')) || getUserData();
+  useImperativeHandle(ref, () => {
+    return { getValues };
+  });
 
-    setPomoCompleted(userData.pomodoros_completed);
-    setPomoDaysLogged(userData.days_logged);
-    setPomoHours(userData.hours_focused);
-  }, []);
+  const getValues = useCallback(async () => {
+    console.log('test');
+    try {
+      const userData =
+        (await getUserData()) ||
+        JSON.parse(window.localStorage.getItem('userData'));
+      setPomoCompleted(userData.pomodoros_completed);
+      setPomoDaysLogged(userData.days_logged);
+      setPomoHours(userData.hours_focused);
+    } catch (error) {}
+  }, [isLogged]);
+
   return (
     <Box>
       <Flex py="3" pl="3" direction="column">
@@ -38,4 +52,4 @@ export const UserBox = () => {
       </Flex>
     </Box>
   );
-};
+});
