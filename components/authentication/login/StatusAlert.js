@@ -12,21 +12,21 @@ import { useEffect, useRef, useState } from 'react';
 // Goal: Only updates on submit...
 // How: componentdidmount lifecycle...
 export const StatusAlert = ({ message, status }) => {
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertStatus, setAlertStatus] = useState('');
+  // const [alertMessage, setAlertMessage] = useState('');
+  // const [alertStatus, setAlertStatus] = useState('');
 
-  useEffect(() => {
-    let isMounted = false;
-    if (!isMounted) {
-      setAlertMessage(message);
-      setAlertStatus(status);
-    }
-    return () => {
-      isMounted = true;
-    };
-  }, []);
+  // useEffect(() => {
+  //   let isMounted = false;
+  //   if (!isMounted) {
+  //     setAlertMessage(message);
+  //     setAlertStatus(status);
+  //   }
+  //   return () => {
+  //     isMounted = true;
+  //   };
+  // }, []);
   return (
-    <Alert mt="3" rounded="5" status={"warning"}>
+    <Alert mt="3" rounded="5" status={"info"}>
       <AlertIcon />
       <AlertTitle>
         <AlertDescription fontSize="s">
