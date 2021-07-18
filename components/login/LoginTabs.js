@@ -12,12 +12,12 @@ import { RegisterPanel } from './RegisterPanel';
 export const LoginTabs = () => {
   return (
     //isLazy for performance
-    <Tabs variant="enclosed" isFitted overflow="none" defaultIndex={0} isLazy >
+    <Tabs variant="enclosed" isFitted overflow="none" defaultIndex={0} isLazy>
       <TabList>
         <Tab>Login</Tab>
         <Tab>Register</Tab>
       </TabList>
-      <TabPanels >
+      <TabPanels>
         <TabPanel>
           {/* LOGIN */}
           <LoginPanel />
