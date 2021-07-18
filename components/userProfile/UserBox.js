@@ -13,7 +13,6 @@ export const UserBox = React.forwardRef((props, ref) => {
   const [pomoDaysLogged, setPomoDaysLogged] = useState();
   const [isLogged, setIsLogged] = useState();
   useEffect(() => {
-    // console.log(isLogged);
     setIsLogged(JSON.parse(localStorage.getItem('isLoggedIn')));
     if (isLogged) {
       getValues();
@@ -22,14 +21,13 @@ export const UserBox = React.forwardRef((props, ref) => {
     return () => {
       window.removeEventListener('storage', getValues());
     };
-  }, []);
+  }, [isLogged]);
 
   useImperativeHandle(ref, () => {
     return { getValues };
   });
 
   const getValues = useCallback(async () => {
-    console.log('test');
     try {
       const userData =
         (await getUserData()) ||
