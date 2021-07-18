@@ -13,7 +13,7 @@ const getUserData = async () => {
     );
     window.localStorage.setItem('userData', JSON.stringify(res.data));
 
-    return res;
+    return res.data;
   } catch (error) {
     return error;
   }

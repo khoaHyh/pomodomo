@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 import { Interval } from './pomoUtils/Interval';
 import { SessionSetters } from './pomoUtils/SessionSetters';
@@ -12,7 +12,7 @@ const Pomodoro = () => {
   const [sessionType, setSessionType] = useState(true); // session true = pomoclock , session false = breakclock
   const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
   const [cycle, setCycle] = useState(0);
-
+  const [isLoggedIn, setIsLoggedIn] = useState();
   useEffect(() => {
     let timer = null;
     let extra = null;
@@ -44,19 +44,21 @@ const Pomodoro = () => {
   }, [isPlaying, timerPointer]);
 
   useEffect(async () => {
-    console.log(cycle);
-
-    setCycle(cycle + 1);
-    await checkCycle();
+    console.log(isLoggedIn)
+    setIsLoggedIn(JSON.parse(localStorage.getItem('isLoggedIn')));
+    if (isLoggedIn) {
+      setCycle(cycle + 1);
+      const patch = await patchUserData(1, 0);
+      await checkCycle();
+    }
   }, [sessionType]);
 
-  const checkCycle = async () => {
+  const checkCycle = useCallback(async () => {
     if (cycle === 2) {
       setCycle(0);
-      const res = await patchUserData(0.0,1);
-      console.log(res);
+      const res = await patchUserData(0.0, 1);
     }
-  };
+  }, [sessionType]);
 
   const handlePlayBool = () => {
     if (isPlaying) {
