@@ -16,11 +16,16 @@ import {
   PopoverArrow,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
+import {
+  SunIcon,
+  MoonIcon,
+  RepeatIcon,
+  RepeatClockIcon,
+} from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { logoutUser } from './authentication/authUtils';
-import { getUsername } from './userProfile/profileUtils';
+import { getUserData, getUsername } from './userProfile/profileUtils';
 import { UserBox } from './userProfile/UserBox';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
@@ -29,6 +34,7 @@ export const Navbar = () => {
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [getLoginBool, setLoginBool] = useState(false);
+  const userRef = useRef();
 
   useEffect(() => {
     // onload set login to false
@@ -83,31 +89,43 @@ export const Navbar = () => {
         {getLoginBool && (
           <Popover trigger="hover">
             <PopoverTrigger>
-              <Button bg='blackAlpha.900'>{getUsername()}</Button>
+              <Button bg="blackAlpha.900">{getUsername()}</Button>
             </PopoverTrigger>
             <PopoverContent w="75%">
               <PopoverArrow />
-              <PopoverHeader fontWeight="bold">{getUsername()}</PopoverHeader>
-              <UserBox />
+              <PopoverHeader fontWeight="bold">
+                {getUsername()}
+                <IconButton
+                  onClick={async () => {
+                    await userRef.current.getValues();
+                  }}
+                  icon={<RepeatClockIcon />}
+                ></IconButton>
+              </PopoverHeader>
+              <UserBox ref={userRef} />
             </PopoverContent>
           </Popover>
         )}
         {/* logout button */}
         {getLoginBool && (
-          <Button bg='blackAlpha.900' position="relative" onClick={handleLogout}>
+          <Button
+            bg="blackAlpha.900"
+            position="relative"
+            onClick={handleLogout}
+          >
             Logout
           </Button>
         )}
         {/* Login button */}
         {!getLoginBool && (
-          <Button bg='blackAlpha.900' position="relative" onClick={handleModal}>
+          <Button bg="blackAlpha.900" position="relative" onClick={handleModal}>
             Login
           </Button>
         )}
 
         {/* Color mode button */}
         <IconButton
-          bg='blackAlpha.900'
+          bg="blackAlpha.900"
           aria-label={`Switch to ${text} mode`}
           icon={<SwitchIcon />}
           onClick={toggleColorMode}

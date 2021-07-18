@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 import { Interval } from './pomoUtils/Interval';
 import { SessionSetters } from './pomoUtils/SessionSetters';
 import { TimerDisplay } from './pomoUtils/TimerDisplay';
+import { patchUserData } from './userProfile/profileUtils';
 
 const Pomodoro = () => {
   const [pomoTime, setPomoTime] = useState(1500);
@@ -10,10 +11,8 @@ const Pomodoro = () => {
   const [{ isPlaying }, setIsPlaying] = useState(false);
   const [sessionType, setSessionType] = useState(true); // session true = pomoclock , session false = breakclock
   const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
-
-  // console.log(pomoTime);
-  // console.log(breakTime);
-
+  const [cycle, setCycle] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   useEffect(() => {
     let timer = null;
     let extra = null;
@@ -25,7 +24,6 @@ const Pomodoro = () => {
         setTimerPointer(breakTime);
       }
     };
-
     if (isPlaying && timerPointer > 0) {
       timer = setInterval(() => {
         setTimerPointer((time = 1) => time - 1);
@@ -43,14 +41,24 @@ const Pomodoro = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isPlaying,
-    setIsPlaying,
-    timerPointer,
-    setSessionType,
-    sessionType,
-    setTimerPointer,
-  ]);
+  }, [isPlaying, timerPointer]);
+
+  useEffect(async () => {
+    console.log(isLoggedIn)
+    setIsLoggedIn(JSON.parse(localStorage.getItem('isLoggedIn')));
+    if (isLoggedIn) {
+      setCycle(cycle + 1);
+      const patch = await patchUserData(1, 0);
+      await checkCycle();
+    }
+  }, [sessionType]);
+
+  const checkCycle = useCallback(async () => {
+    if (cycle === 2) {
+      setCycle(0);
+      const res = await patchUserData(0.0, 1);
+    }
+  }, [sessionType]);
 
   const handlePlayBool = () => {
     if (isPlaying) {
@@ -116,7 +124,14 @@ const Pomodoro = () => {
       rounded="xl"
     >
       {/* TIMER DISPLAY  */}
-      <Stack direction="column" verticalAlign align="center" boxShadow='2xl' p='4' borderRadius='xl'>
+      <Stack
+        direction="column"
+        verticalAlign
+        align="center"
+        boxShadow="2xl"
+        p="4"
+        borderRadius="xl"
+      >
         <Box>
           {sessionType && (
             <TimerDisplay

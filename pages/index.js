@@ -4,19 +4,12 @@ import { Navbar } from '../components/Navbar';
 import Pomodoro from '../components/Pomodoro';
 
 const Index = () => {
-  useEffect(() => {
-    window.localStorage.setItem('isLoggedIn', false);
-  }, []);
+
 
   return (
     <Flex direction="column" align="center" justify="center">
       <Navbar />
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        h="93vh"
-      >
+      <Flex direction="column" align="center" justify="center" h="93vh">
         <Pomodoro />
       </Flex>
     </Flex>

@@ -18,18 +18,11 @@ export const LoginPanel = () => {
 
   const handleLogin = async e => {
     e.preventDefault();
-    try {
-      const res = await loginUser(userName, password);
-      setSuccess(res.data.success);
-      setMessage([{ message: res.data.message }]);
-      window.localStorage.setItem('isLoggedIn', true);
-      window.localStorage.setItem('user', userName);
-    } catch (err) {
-      if (err.response !== null) {
-        setSuccess(err.response.data.success);
-        setMessage([{ message: err.response.data.message }]);
-      }
-    }
+    const res = await loginUser(userName, password);
+    setSuccess(res.data.success);
+    setMessage([{ message: res.data.message }]);
+    window.localStorage.setItem('isLoggedIn', true);
+    window.localStorage.setItem('user', userName);
   };
 
   return (

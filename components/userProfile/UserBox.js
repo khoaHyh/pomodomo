@@ -1,24 +1,43 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { getUserData } from './profileUtils';
 
-export const UserBox = () => {
+export const UserBox = React.forwardRef((props, ref) => {
   const [pomoHours, setPomoHours] = useState();
   const [pomoCompleted, setPomoCompleted] = useState();
   const [pomoDaysLogged, setPomoDaysLogged] = useState();
-
+  const [isLogged, setIsLogged] = useState();
   useEffect(() => {
-    console.log('loading');
-    getValues();
-  }, []);
+    setIsLogged(JSON.parse(localStorage.getItem('isLoggedIn')));
+    if (isLogged) {
+      getValues();
+    }
+    window.addEventListener('storage', getValues());
+    return () => {
+      window.removeEventListener('storage', getValues());
+    };
+  }, [isLogged]);
 
-  const getValues = async () => {
-    const userData = await getUserData();
-    console.log(userData);
-    setPomoCompleted(userData.data.pomodoros_completed);
-    setPomoDaysLogged(userData.data.days_logged);
-    setPomoHours(userData.data.hours_focused);
-  };
+  useImperativeHandle(ref, () => {
+    return { getValues };
+  });
+
+  const getValues = useCallback(async () => {
+    try {
+      const userData =
+        (await getUserData()) ||
+        JSON.parse(window.localStorage.getItem('userData'));
+      setPomoCompleted(userData.pomodoros_completed);
+      setPomoDaysLogged(userData.days_logged);
+      setPomoHours(userData.hours_focused);
+    } catch (error) {}
+  }, [isLogged]);
+
   return (
     <Box>
       <Flex py="3" pl="3" direction="column">
@@ -31,4 +50,4 @@ export const UserBox = () => {
       </Flex>
     </Box>
   );
-};
+});
