@@ -12,20 +12,14 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
-  PopoverFooter,
   PopoverArrow,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import {
-  SunIcon,
-  MoonIcon,
-  RepeatIcon,
-  RepeatClockIcon,
-} from '@chakra-ui/icons';
+import { SunIcon, MoonIcon, RepeatClockIcon } from '@chakra-ui/icons';
 import { LoginModal } from './authentication/login/LoginModal';
 import { useEffect, useRef, useState } from 'react';
 import { logoutUser } from './authentication/authUtils';
-import { getUserData, getUsername } from './userProfile/profileUtils';
+import { getUsername } from './userProfile/profileUtils';
 import { UserBox } from './userProfile/UserBox';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
