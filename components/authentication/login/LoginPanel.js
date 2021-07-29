@@ -21,8 +21,10 @@ export const LoginPanel = () => {
     const res = await loginUser(userName, password);
     setSuccess(res.data.success);
     setMessage([{ message: res.data.message }]);
-    window.localStorage.setItem('isLoggedIn', true);
-    window.localStorage.setItem('user', userName);
+    if (res.data.success === true) {
+      window.localStorage.setItem('isLoggedIn', true);
+      window.localStorage.setItem('user', userName);
+    }
   };
 
   return (
@@ -49,7 +51,7 @@ export const LoginPanel = () => {
           }}
         />
         {/* LOGIN BUTTON */}
-        <Button w="100%" my="4" type="submit" id='login-submit'>
+        <Button w="100%" my="4" type="submit" id="login-submit">
           Login
         </Button>
         {message.length >= 1 && <StatusAlert message={message} />}
