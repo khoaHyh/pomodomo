@@ -22,8 +22,9 @@ export const LoginModal = ({ onClose, isOpen }) => {
       <ModalContent>
         <LoginTabs />
         <ModalFooter>
-          <Button onClick={onClose}>Close</Button>
-
+          <Button id="close-modal" onClick={onClose}>
+            Close
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -27,7 +27,7 @@ const Pomodoro = () => {
     if (isPlaying && timerPointer > 0) {
       timer = setInterval(() => {
         setTimerPointer((time = 1) => time - 1);
-      }, 1);
+      }, 1000);
     } else if (!timerPointer) {
       extra = setInterval(() => {
         setSessionType(!sessionType);

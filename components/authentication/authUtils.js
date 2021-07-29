@@ -2,7 +2,6 @@ import axios from 'axios';
 import crypto from 'crypto';
 import { resolve } from 'path';
 // Validate lowercase letters
-axios.defaults.withCredentials = true;
 
 const lowerCaseCheck = password => {
   let lowerCaseLetters = /[a-z]/g;
@@ -67,7 +66,7 @@ const passwordAPIChecker = async password => {
   let range = hashed.slice(0, 5);
   let suffix = hashed.slice(5);
 
-  let res = await axios(`https://api.pwnedpasswords.com/range/${range}`);
+  let res = await axios.get(`https://api.pwnedpasswords.com/range/${range}`, { withCredentials: false });
   let body = await res.data;
 
   let regex = new RegExp(`^${suffix}:`, 'm');
@@ -130,7 +129,8 @@ const userValidation = async (password = '', userName = '') => {
 const logoutUser = async () => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`
+      `${process.env.NEXT_PUBLIC_API_URL}${'/logout'}`,
+      { withCredentials: true }
     );
     return res;
   } catch (error) {
@@ -141,7 +141,8 @@ const logoutUser = async () => {
 const registerUser = async newUserSchema => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}${'/register'}`,
-    newUserSchema
+    newUserSchema,
+    { withCredentials: true }
   );
   return res;
 };
@@ -153,7 +154,8 @@ const loginUser = async (userName, password) => {
       {
         username: userName,
         password: password,
-      }
+      },
+      { withCredentials: true }
     );
     return res;
   } catch (error) {
