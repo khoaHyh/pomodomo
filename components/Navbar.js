@@ -81,9 +81,9 @@ export const Navbar = () => {
       <Stack spacing={[2, 3, 4]} isInline align="center" pr="4">
         {/* User data button */}
         {getLoginBool && (
-          <Popover trigger="hover">
+          <Popover trigger="hover" >
             <PopoverTrigger>
-              <Button bg="blackAlpha.900">{getUsername()}</Button>
+              <Button id="profile-button" bg="blackAlpha.900">{getUsername()}</Button>
             </PopoverTrigger>
             <PopoverContent w="75%">
               <PopoverArrow />

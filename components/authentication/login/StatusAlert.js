@@ -17,7 +17,7 @@ export const StatusAlert = ({ message, status }) => {
       <AlertIcon />
       <AlertTitle>
         <AlertDescription fontSize="s">
-          <UnorderedList>
+          <UnorderedList id='message-list'>
             {message.map((item, index) => {
               return <ListItem key={`status${index}`}>{item.message}</ListItem>;
             })}
