@@ -1,9 +1,9 @@
-describe.only('Logging in', function () {
+describe('Logging in', function () {
   before(function () {
     cy.request('GET', 'http://localhost:8080/testing/reset');
     cy.visit('http://localhost:3000');
   });
-  it.skip('with wrong credentials will fail the login', function () {
+  it('with wrong credentials will fail the login', function () {
     cy.intercept('/login').as('login-fail');
     cy.contains('Login').click();
     cy.get('input[id*=text]').type('undefinedUser');
