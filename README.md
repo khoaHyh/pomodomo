@@ -4,6 +4,17 @@ Frontend of pomodomo app. Click [here](https://github.com/khoaHyh/pomodomo-api) 
 
 ![demo](./public/images/app-screenshot.png)
 
+## Features
+* Pomodoro Technique
+   * Change each sessions intervals
+* Login and Register
+* User email verification
+* Get user data
+   * Pomodoros Completed
+   * Hours Focused
+   * Number of days logged in
+       
+
 ## Local development   
 
 #### `Setup`
