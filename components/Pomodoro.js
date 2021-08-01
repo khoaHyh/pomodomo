@@ -13,6 +13,7 @@ const Pomodoro = () => {
   const [timerPointer, setTimerPointer] = useState(pomoTime); // indicates which timer/session value to focus on
   const [cycle, setCycle] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState();
+
   useEffect(() => {
     let timer = null;
     let extra = null;
@@ -32,6 +33,7 @@ const Pomodoro = () => {
       extra = setInterval(() => {
         setSessionType(!sessionType);
         handleSwitch(!sessionType);
+        handleAlertNoise();
       }, 1000);
     }
 
@@ -44,7 +46,6 @@ const Pomodoro = () => {
   }, [isPlaying, timerPointer]);
 
   useEffect(async () => {
-    console.log(isLoggedIn)
     setIsLoggedIn(JSON.parse(localStorage.getItem('isLoggedIn')));
     if (isLoggedIn) {
       setCycle(cycle + 1);
@@ -52,6 +53,19 @@ const Pomodoro = () => {
       await checkCycle();
     }
   }, [sessionType]);
+
+  useEffect(() => {
+    
+  }, []);
+
+  const handleAlertNoise = async () => {
+    const bell = new Audio('sound/bell.wav');
+    bell.load();
+    try {
+      await bell.play();
+    } catch (error) {
+    }
+  };
 
   const checkCycle = useCallback(async () => {
     if (cycle === 2) {
@@ -123,6 +137,9 @@ const Pomodoro = () => {
       w={['s', 'md', 'lg', 'lg']}
       rounded="xl"
     >
+      {/* <audio id="bell-notification" autoPlay='false'>
+        <source src="./bell.wav" type="audio/wav" ></source>
+      </audio> */}
       {/* TIMER DISPLAY  */}
       <Stack
         direction="column"
