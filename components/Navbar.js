@@ -23,7 +23,7 @@ import { getUsername } from './userProfile/profileUtils';
 import { UserBox } from './userProfile/UserBox';
 export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
-  const bg = useColorModeValue('#db524d', '#33332d');
+  const bg = useColorModeValue('white', '#33332d');
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,24 +102,20 @@ export const Navbar = () => {
         )}
         {/* logout button */}
         {getLoginBool && (
-          <Button
-            bg="blackAlpha.900"
-            position="relative"
-            onClick={handleLogout}
-          >
+          <Button bg={bg} position="relative" onClick={handleLogout}>
             Logout
           </Button>
         )}
         {/* Login button */}
         {!getLoginBool && (
-          <Button bg="blackAlpha.900" position="relative" onClick={handleModal}>
+          <Button bg={bg} position="relative" onClick={handleModal}>
             Login
           </Button>
         )}
 
         {/* Color mode button */}
         <IconButton
-          bg="blackAlpha.900"
+          bg={bg}
           aria-label={`Switch to ${text} mode`}
           icon={<SwitchIcon />}
           onClick={toggleColorMode}
