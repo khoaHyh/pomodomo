@@ -9,26 +9,29 @@ import {
 } from '@chakra-ui/react';
 
 export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
-  const incrementBg = useColorModeValue('green.400', '#33332d');
+  const incrementBg = useColorModeValue('white', '#33332d');
   const incrementActiveBg = useColorModeValue('green.500', '#33332d');
-  const decrementBg = useColorModeValue('#db524d', '#33332d');
+  const decrementBg = useColorModeValue('white', '#33332d');
   const decrementActiveBg = useColorModeValue('white', '#33332d');
-  const colorIncrement = useColorModeValue('#33332d', 'green.400');
-  const colorDecrement = useColorModeValue('#33332d', '#db524d');
+  const colorIncrement = useColorModeValue('green.500', 'green.400');
+  const colorDecrement = useColorModeValue('#db524d', '#db524d');
 
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      min: 1,
-      max: 60,
-      value: sessionTime,
-      onChange: (valString, val) => {
-        // console.log(typeof val);
-        handleSessionTime((sessionTime = val));
-      },
-      keepWithinRange: true,
-      clampValueonBlur: true,
-      allowMouseWheel: true,
-    });
+  const {
+    getInputProps,
+    getIncrementButtonProps,
+    getDecrementButtonProps,
+  } = useNumberInput({
+    min: 1,
+    max: 60,
+    value: sessionTime,
+    onChange: (valString, val) => {
+      // console.log(typeof val);
+      handleSessionTime((sessionTime = val));
+    },
+    keepWithinRange: true,
+    clampValueonBlur: true,
+    allowMouseWheel: true,
+  });
 
   // {
   //   onClick: () => {
