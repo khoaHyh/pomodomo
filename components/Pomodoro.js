@@ -137,9 +137,7 @@ const Pomodoro = () => {
       w={['s', 'md', 'lg', 'lg']}
       rounded="xl"
     >
-      {/* <audio id="bell-notification" autoPlay='false'>
-        <source src="./bell.wav" type="audio/wav" ></source>
-      </audio> */}
+    
       {/* TIMER DISPLAY  */}
       <Stack
         direction="column"
