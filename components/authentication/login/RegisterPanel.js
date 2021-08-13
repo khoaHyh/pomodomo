@@ -53,9 +53,10 @@ export const RegisterPanel = () => {
   return (
     <form onSubmit={handleRegister}>
       {/* USER NAME */}
-      <FormControl id="userName">
+      <FormControl>
         <FormLabel>User Name</FormLabel>
         <Input
+          id="reg-userName"
           type="text"
           onChange={e => {
             setUserName(e.target.value);
@@ -63,9 +64,10 @@ export const RegisterPanel = () => {
         />
       </FormControl>
       {/* EMAIL */}
-      <FormControl id="email">
+      <FormControl>
         <FormLabel>Email</FormLabel>
         <Input
+          id="reg-email"
           type="email"
           onChange={e => {
             setEmail(e.target.value);
@@ -73,9 +75,10 @@ export const RegisterPanel = () => {
         />
       </FormControl>
       {/* PASSWORD */}
-      <FormControl id="password">
+      <FormControl>
         <FormLabel>Password</FormLabel>
         <Input
+          id="reg-password"
           type="password"
           onChange={e => {
             setPassword(e.target.value);
@@ -87,7 +90,7 @@ export const RegisterPanel = () => {
         )}
 
         {/* REGISTER BUTTON */}
-        <Button w="100%" mt="4" type="submit">
+        <Button w="100%" mt="4" type="submit" id='reg-submit'>
           Register
         </Button>
         <FormHelperText>
