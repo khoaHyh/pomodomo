@@ -1,3 +1,4 @@
+import { useColorModeValue } from '@chakra-ui/react';
 import {
   FormControl,
   FormHelperText,
@@ -10,9 +11,18 @@ import { LoginPanel } from './LoginPanel';
 import { RegisterPanel } from './RegisterPanel';
 
 export const LoginTabs = () => {
+  const modalBg = useColorModeValue('white', '#33332d');
+
   return (
     //isLazy for performance
-    <Tabs variant="enclosed" isFitted overflow="none" defaultIndex={0} isLazy>
+    <Tabs
+      bg={modalBg}
+      variant="enclosed"
+      isFitted
+      overflow="none"
+      defaultIndex={0}
+      isLazy
+    >
       <TabList>
         <Tab>Login</Tab>
         <Tab>Register</Tab>

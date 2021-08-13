@@ -1,14 +1,15 @@
-import { Button } from '@chakra-ui/button';
+import { Button, useColorModeValue } from '@chakra-ui/react';
 import {
   Modal,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/modal';
 import { LoginTabs } from './LoginTabs';
 
 export const LoginModal = ({ onClose, isOpen }) => {
+  const footerBg = useColorModeValue('white', '#33332d');
+
   return (
     <Modal
       isCentered
@@ -21,7 +22,7 @@ export const LoginModal = ({ onClose, isOpen }) => {
       <ModalOverlay />
       <ModalContent>
         <LoginTabs />
-        <ModalFooter>
+        <ModalFooter bg={footerBg}>
           <Button id="close-modal" onClick={onClose}>
             Close
           </Button>
