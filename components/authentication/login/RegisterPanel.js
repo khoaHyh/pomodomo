@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { userValidation, registerUser } from '../authUtils';
 import { StatusAlert } from './StatusAlert';
 
@@ -90,7 +90,7 @@ export const RegisterPanel = () => {
         )}
 
         {/* REGISTER BUTTON */}
-        <Button w="100%" mt="4" type="submit" id='reg-submit'>
+        <Button w="100%" mt="4" type="submit" id="reg-submit">
           Register
         </Button>
         <FormHelperText>
