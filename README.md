@@ -9,7 +9,7 @@ Frontend of pomodomo app. Click [here](https://github.com/khoaHyh/pomodomo-api) 
    * Change each sessions intervals
 * Login and Register
 * User email verification
-* Get user data
+* Displays unique user data
    * Pomodoros Completed
    * Hours Focused
    * Number of days logged in
