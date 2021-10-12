@@ -128,11 +128,9 @@ const Pomodoro = () => {
     <Stack
       direction="column"
       id="container-pomodoro"
-      // boxShadow="xl"
-      // border="1px"
+  
       align="center"
       justify="center"
-      p={5}
       h={['md', 'md', 'lg', 'lg']}
       w={['s', 'md', 'lg', 'lg']}
       rounded="xl"
@@ -143,8 +141,8 @@ const Pomodoro = () => {
         direction="column"
         verticalAlign
         align="center"
-        boxShadow="2xl"
-        p="4"
+        boxShadow='2xl'
+        p="8"
         borderRadius="xl"
       >
         <Box>
