@@ -16,22 +16,19 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
   const colorIncrement = useColorModeValue('green.500', 'green.400');
   const colorDecrement = useColorModeValue('#db524d', '#db524d');
 
-  const {
-    getInputProps,
-    getIncrementButtonProps,
-    getDecrementButtonProps,
-  } = useNumberInput({
-    min: 1,
-    max: 60,
-    value: sessionTime,
-    onChange: (valString, val) => {
-      // console.log(typeof val);
-      handleSessionTime((sessionTime = val));
-    },
-    keepWithinRange: true,
-    clampValueonBlur: true,
-    allowMouseWheel: true,
-  });
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      min: 1,
+      max: 60,
+      value: sessionTime,
+      onChange: (valString, val) => {
+        // console.log(typeof val);
+        handleSessionTime((sessionTime = val));
+      },
+      keepWithinRange: true,
+      clampValueonBlur: true,
+      allowMouseWheel: true,
+    });
 
   // {
   //   onClick: () => {
@@ -55,7 +52,7 @@ export const Interval = ({ sessionTime, handleSessionTime, timeTitle }) => {
         aria-label={`${timeTitle} input`}
         {...inputTime}
       ></Input>
-      <ButtonGroup isAttached>
+      <ButtonGroup isAttached variant='outline'>
         <Button
           bg={incrementBg}
           _active={incrementActiveBg}
