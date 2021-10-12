@@ -4,7 +4,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
-} from '@chakra-ui/modal';
+} from '@chakra-ui/react';
 import { LoginTabs } from './LoginTabs';
 
 export const LoginModal = ({ onClose, isOpen }) => {
