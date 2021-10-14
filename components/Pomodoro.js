@@ -18,20 +18,12 @@ const Pomodoro = () => {
     let timer = null;
     let extra = null;
 
-    const handleSwitch = session => {
-      if (session) {
-        setTimerPointer(pomoTime);
-      } else {
-        setTimerPointer(breakTime);
-      }
-    };
     if (isPlaying && timerPointer > 0) {
       timer = setInterval(() => {
         setTimerPointer((time = 1) => time - 1);
-      }, 1000);
+      }, 1);
     } else if (!timerPointer) {
       extra = setInterval(() => {
-        setSessionType(!sessionType);
         handleSwitch(!sessionType);
         handleAlertNoise();
       }, 1000);
@@ -54,17 +46,21 @@ const Pomodoro = () => {
     }
   }, [sessionType]);
 
-  useEffect(() => {
-    
-  }, []);
+  const handleSwitch = session => {
+    setSessionType(session);
+    if (session) {
+      setTimerPointer(pomoTime);
+    } else {
+      setTimerPointer(breakTime);
+    }
+  };
 
   const handleAlertNoise = async () => {
     const bell = new Audio('sound/bell.wav');
     bell.load();
     try {
       await bell.play();
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const checkCycle = useCallback(async () => {
@@ -128,23 +124,19 @@ const Pomodoro = () => {
     <Stack
       direction="column"
       id="container-pomodoro"
-      // boxShadow="xl"
-      // border="1px"
       align="center"
       justify="center"
-      p={5}
       h={['md', 'md', 'lg', 'lg']}
       w={['s', 'md', 'lg', 'lg']}
       rounded="xl"
     >
-    
       {/* TIMER DISPLAY  */}
       <Stack
         direction="column"
         verticalAlign
         align="center"
         boxShadow="2xl"
-        p="4"
+        p="8"
         borderRadius="xl"
       >
         <Box>
@@ -153,6 +145,9 @@ const Pomodoro = () => {
               sessionType={'Session'}
               minuteHandle={minuteHandler(timerPointer)}
               secondsHandle={secondsHandler(timerPointer)}
+              switchSession={() => {
+                handleSwitch(!sessionType);
+              }}
             />
           )}
           {!sessionType && (
@@ -160,6 +155,9 @@ const Pomodoro = () => {
               sessionType={'Break'}
               minuteHandle={minuteHandler(timerPointer)}
               secondsHandle={secondsHandler(timerPointer)}
+              switchSession={() => {
+                handleSwitch(!sessionType);
+              }}
             />
           )}
         </Box>

@@ -4,8 +4,6 @@ import { Navbar } from '../components/Navbar';
 import Pomodoro from '../components/Pomodoro';
 
 const Index = () => {
-
-
   return (
     <Flex direction="column" align="center" justify="center">
       <Navbar />
